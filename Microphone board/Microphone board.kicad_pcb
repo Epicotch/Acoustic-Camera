@@ -1357,6 +1357,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C7420353"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "52d1df59-29a2-40f6-a225-406d54e1afd4")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(path "/933df564-ce74-4453-93df-6ff071652f89/9c67a7a4-c847-448e-a293-ef653ac89cb7")
 		(sheetname "/Display/")
 		(sheetfile "display.kicad_sch")
@@ -3369,6 +3380,17 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "011026bd-8494-4080-90f0-b9393ddf66c5")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C25744"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3c7e7784-2e11-4673-86c3-7d7b7ec77a65")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8218,6 +8240,17 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "6600f1b9-2ab2-4ca6-b08b-739c434ab939")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C25879"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "88e5984b-2ccd-42bc-937a-d355a4d1f564")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32414,6 +32447,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C25744"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b38393c8-72ae-4b0b-b49d-3a777a909993")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(property ki_fp_filters "R_*")
 		(path "/d2dc67f8-a5f5-4154-8706-bc3e907f75c0/f5def55b-8b4c-4034-b6f8-7ab3a07cb0ec")
 		(sheetname "/MCU/")
@@ -32561,6 +32605,17 @@
 				(font
 					(size 1 1)
 					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" "C51928210"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "2d65dd2f-d7cd-44aa-b984-d276c1df2c4f")
+			(effects
+				(font
+					(size 1.27 1.27)
 				)
 			)
 		)
@@ -33927,6 +33982,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C25879"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "2fbb056a-284c-4507-ad80-b1ed7589b281")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(property ki_fp_filters "R_*")
 		(path "/d2dc67f8-a5f5-4154-8706-bc3e907f75c0/eed26f8d-c05d-4c16-b42f-d7724549071d")
 		(sheetname "/MCU/")
@@ -34213,6 +34279,17 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "3c537853-772e-4e25-ab98-6d9c190268a8")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C25105"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "8e68c3f8-e1d4-4371-96ce-159b37b5b3fd")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35270,6 +35347,17 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "bf458133-0405-407f-b473-90c5cfab0ed9")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C15127"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c62e080a-0731-48fb-ac91-a278b029e5ae")
 			(effects
 				(font
 					(size 1.27 1.27)

@@ -2193,7 +2193,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "14ab86db-70a2-406e-acf2-685f6da0028f")
-		(property "Reference" "R37"
+		(property "Reference" "R45"
 			(at 144.78 54.6099 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2257,7 +2257,7 @@
 		(instances
 			(project "Microphone board"
 				(path "/54b36551-a175-45db-a91c-236f7d72a35b/5faa6c77-3ace-4c5c-af94-e4673e5e050e"
-					(reference "R37")
+					(reference "R45")
 					(unit 1)
 				)
 			)
@@ -2388,7 +2388,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "305c5b4b-a571-4f4a-b6bb-23f39c955183")
-		(property "Reference" "R39"
+		(property "Reference" "R43"
 			(at 127 54.6099 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2452,7 +2452,7 @@
 		(instances
 			(project "Microphone board"
 				(path "/54b36551-a175-45db-a91c-236f7d72a35b/5faa6c77-3ace-4c5c-af94-e4673e5e050e"
-					(reference "R39")
+					(reference "R43")
 					(unit 1)
 				)
 			)
@@ -2470,7 +2470,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "4d1e1e02-73e7-459a-ae35-8d248a2d128d")
-		(property "Reference" "#PWR091"
+		(property "Reference" "#PWR0105"
 			(at 81.28 91.44 0)
 			(hide yes)
 			(show_name no)
@@ -2530,7 +2530,7 @@
 		(instances
 			(project "Microphone board"
 				(path "/54b36551-a175-45db-a91c-236f7d72a35b/5faa6c77-3ace-4c5c-af94-e4673e5e050e"
-					(reference "#PWR091")
+					(reference "#PWR0105")
 					(unit 1)
 				)
 			)
@@ -2548,7 +2548,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "4ed3c5ad-2c58-4553-878d-8f067e850dd8")
-		(property "Reference" "#PWR090"
+		(property "Reference" "#PWR0109"
 			(at 208.28 93.98 0)
 			(hide yes)
 			(show_name no)
@@ -2608,7 +2608,7 @@
 		(instances
 			(project "Microphone board"
 				(path "/54b36551-a175-45db-a91c-236f7d72a35b/5faa6c77-3ace-4c5c-af94-e4673e5e050e"
-					(reference "#PWR090")
+					(reference "#PWR0109")
 					(unit 1)
 				)
 			)
@@ -2708,7 +2708,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "5d26cc37-3d45-4999-a607-9bb1d619c7a2")
-		(property "Reference" "J1"
+		(property "Reference" "J3"
 			(at 186.055 50.8 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2794,7 +2794,7 @@
 		(instances
 			(project "Microphone board"
 				(path "/54b36551-a175-45db-a91c-236f7d72a35b/5faa6c77-3ace-4c5c-af94-e4673e5e050e"
-					(reference "J1")
+					(reference "J3")
 					(unit 1)
 				)
 			)
@@ -2812,7 +2812,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "6b273946-a6cb-4622-b42b-04a1ff1f96d4")
-		(property "Reference" "R40"
+		(property "Reference" "R42"
 			(at 118.11 54.6099 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2876,7 +2876,7 @@
 		(instances
 			(project "Microphone board"
 				(path "/54b36551-a175-45db-a91c-236f7d72a35b/5faa6c77-3ace-4c5c-af94-e4673e5e050e"
-					(reference "R40")
+					(reference "R42")
 					(unit 1)
 				)
 			)
@@ -2894,7 +2894,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "704dfe8c-b987-4080-bd50-d6f42420571c")
-		(property "Reference" "R38"
+		(property "Reference" "R44"
 			(at 135.89 54.6099 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2958,7 +2958,7 @@
 		(instances
 			(project "Microphone board"
 				(path "/54b36551-a175-45db-a91c-236f7d72a35b/5faa6c77-3ace-4c5c-af94-e4673e5e050e"
-					(reference "R38")
+					(reference "R44")
 					(unit 1)
 				)
 			)
@@ -2976,7 +2976,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7ef2b0e4-d241-427f-8905-1b59170040f2")
-		(property "Reference" "#PWR088"
+		(property "Reference" "#PWR0107"
 			(at 160.02 50.8 0)
 			(hide yes)
 			(show_name no)
@@ -3036,7 +3036,7 @@
 		(instances
 			(project "Microphone board"
 				(path "/54b36551-a175-45db-a91c-236f7d72a35b/5faa6c77-3ace-4c5c-af94-e4673e5e050e"
-					(reference "#PWR088")
+					(reference "#PWR0107")
 					(unit 1)
 				)
 			)
@@ -3054,7 +3054,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "83b5e481-71b7-4413-a22b-ff36eb13d782")
-		(property "Reference" "#PWR089"
+		(property "Reference" "#PWR0108"
 			(at 160.02 93.98 0)
 			(hide yes)
 			(show_name no)
@@ -3114,7 +3114,7 @@
 		(instances
 			(project "Microphone board"
 				(path "/54b36551-a175-45db-a91c-236f7d72a35b/5faa6c77-3ace-4c5c-af94-e4673e5e050e"
-					(reference "#PWR089")
+					(reference "#PWR0108")
 					(unit 1)
 				)
 			)
@@ -3132,7 +3132,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "945fe711-bf5d-4769-8f3f-c1bd646712ae")
-		(property "Reference" "#PWR087"
+		(property "Reference" "#PWR0106"
 			(at 147.32 88.9 0)
 			(hide yes)
 			(show_name no)
@@ -3192,7 +3192,7 @@
 		(instances
 			(project "Microphone board"
 				(path "/54b36551-a175-45db-a91c-236f7d72a35b/5faa6c77-3ace-4c5c-af94-e4673e5e050e"
-					(reference "#PWR087")
+					(reference "#PWR0106")
 					(unit 1)
 				)
 			)
@@ -3210,7 +3210,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "cc277102-2486-42ad-a372-d4eb295ecc28")
-		(property "Reference" "R36"
+		(property "Reference" "R47"
 			(at 153.67 54.6099 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3274,7 +3274,7 @@
 		(instances
 			(project "Microphone board"
 				(path "/54b36551-a175-45db-a91c-236f7d72a35b/5faa6c77-3ace-4c5c-af94-e4673e5e050e"
-					(reference "R36")
+					(reference "R47")
 					(unit 1)
 				)
 			)
@@ -3292,7 +3292,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f79c238e-9181-4360-9576-8911f142e86e")
-		(property "Reference" "R35"
+		(property "Reference" "R46"
 			(at 149.86 90.1699 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3356,7 +3356,7 @@
 		(instances
 			(project "Microphone board"
 				(path "/54b36551-a175-45db-a91c-236f7d72a35b/5faa6c77-3ace-4c5c-af94-e4673e5e050e"
-					(reference "R35")
+					(reference "R46")
 					(unit 1)
 				)
 			)

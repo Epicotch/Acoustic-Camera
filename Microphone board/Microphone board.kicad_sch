@@ -300,8 +300,8 @@
 		(uuid "ffb45fc9-8be7-4f88-be0d-30323cc4d447")
 	)
 	(sheet
-		(at 132.715 123.19)
-		(size 18.415 10.795)
+		(at 189.23 119.38)
+		(size 17.78 17.78)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -316,7 +316,7 @@
 		)
 		(uuid "1257777c-ecb0-4c57-a28f-5d93c3c4e3b9")
 		(property "Sheetname" "User interface"
-			(at 132.715 122.4784 0)
+			(at 189.23 118.6684 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -327,7 +327,7 @@
 			)
 		)
 		(property "Sheetfile" "trigger.kicad_sch"
-			(at 132.715 134.5696 0)
+			(at 189.23 137.7446 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -335,6 +335,66 @@
 					(size 1.27 1.27)
 				)
 				(justify left top)
+			)
+		)
+		(pin "BUTTON" output
+			(at 189.23 121.92 180)
+			(uuid "8c6719a3-fc88-4975-a71d-19a4349137d9")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "DOWN" output
+			(at 189.23 127 180)
+			(uuid "eafa99dd-4edd-44dc-b6f3-788f4ecab4ec")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "LEFT" output
+			(at 189.23 129.54 180)
+			(uuid "a1bbf2ac-c3b4-4ff5-97ec-1523bd41c54f")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "RIGHT" output
+			(at 189.23 132.08 180)
+			(uuid "0cd11422-3eee-44a8-bbe0-b66ff78a30b8")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "TRIGGER" output
+			(at 189.23 134.62 180)
+			(uuid "ec91ef0e-bf97-440d-8cff-14620f6614ef")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "UP" output
+			(at 189.23 124.46 180)
+			(uuid "290c098f-35b5-479c-a77a-5bb7000eee35")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 			)
 		)
 		(instances
@@ -889,7 +949,7 @@
 	)
 	(sheet
 		(at 102.87 43.18)
-		(size 71.12 69.215)
+		(size 71.12 93.98)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -915,7 +975,7 @@
 			)
 		)
 		(property "Sheetfile" "MCU.kicad_sch"
-			(at 102.87 112.9796 0)
+			(at 102.87 137.7446 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
