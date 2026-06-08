@@ -53,7 +53,13 @@
           "min_clearance": 0.5
         }
       },
-      "diff_pair_dimensions": [],
+      "diff_pair_dimensions": [
+        {
+          "gap": 0.0,
+          "via_gap": 0.0,
+          "width": 0.0
+        }
+      ],
       "drc_exclusions": [],
       "meta": {
         "version": 2
@@ -187,7 +193,9 @@
           "td_width_to_size_filter_ratio": 0.9
         }
       ],
-      "track_widths": [],
+      "track_widths": [
+        0.0
+      ],
       "tuning_pattern_settings": {
         "diff_pair_defaults": {
           "corner_radius_percentage": 80,
@@ -214,7 +222,12 @@
           "spacing": 0.6
         }
       },
-      "via_dimensions": [],
+      "via_dimensions": [
+        {
+          "diameter": 0.0,
+          "drill": 0.0
+        }
+      ],
       "zones_allow_external_fillets": false
     },
     "ipc2581": {
@@ -450,7 +463,7 @@
       "no_connect_dangling": "warning",
       "pin_not_connected": "error",
       "pin_not_driven": "error",
-      "pin_to_pin": "warning",
+      "pin_to_pin": "error",
       "power_pin_not_driven": "error",
       "same_local_global_label": "warning",
       "similar_label_and_power": "warning",
@@ -495,6 +508,14 @@
         "via_diameter": 0.6,
         "via_drill": 0.3,
         "wire_width": 6
+      },
+      {
+        "name": "50Z",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 0,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.381164,
+        "tuning_profile": ""
       }
     ],
     "meta": {
@@ -591,7 +612,35 @@
       "sort_asc": true,
       "sort_field": "Reference"
     },
-    "bus_aliases": {},
+    "bus_aliases": {
+      "DCMI": [
+        "DCMI_D[0..7]",
+        "DCMI_HSYNC",
+        "DCMI_VSYNC",
+        "DCMI_PIXCLK"
+      ],
+      "FMC_LCD": [
+        "FMC_D[0..15]",
+        "FMC_NE1",
+        "FMC_NWE",
+        "FMC_NOE",
+        "FMC_RS"
+      ],
+      "LTDC": [
+        "LTDC_R[3..7]",
+        "LTDC_G[2..7]",
+        "LTDC_B[3..7]",
+        "LTDC_DE",
+        "LTDC_HSYNC",
+        "LTDC_VSYNC",
+        "LTDC_CLK"
+      ],
+      "SD": [
+        "SD_D[0..3]",
+        "SD_CLK",
+        "SD_CMD"
+      ]
+    },
     "connection_grid_size": 50.0,
     "drawing": {
       "dashed_lines_dash_length_ratio": 12.0,
@@ -599,7 +648,7 @@
       "default_line_thickness": 6.0,
       "default_text_size": 50.0,
       "field_names": [],
-      "hop_over_size_choice": 0,
+      "hop_over_size_choice": 2,
       "intersheets_ref_own_page": false,
       "intersheets_ref_prefix": "",
       "intersheets_ref_short": false,
@@ -632,7 +681,7 @@
         "uuid": "54b36551-a175-45db-a91c-236f7d72a35b"
       }
     ],
-    "used_designators": "",
+    "used_designators": "U10,#PWR128-134,L3,C82-85,R56",
     "variants": []
   },
   "sheets": [
@@ -662,7 +711,19 @@
     ],
     [
       "1257777c-ecb0-4c57-a28f-5d93c3c4e3b9",
-      "Trigger"
+      "User interface"
+    ],
+    [
+      "5faa6c77-3ace-4c5c-af94-e4673e5e050e",
+      "SD"
+    ],
+    [
+      "79046aa6-36da-44d7-85af-3c84d3bd172d",
+      "Power"
+    ],
+    [
+      "4a07b22c-fbc7-448a-93f8-173b71156924",
+      "USB"
     ]
   ],
   "text_variables": {},
