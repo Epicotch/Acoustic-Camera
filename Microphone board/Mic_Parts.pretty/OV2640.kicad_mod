@@ -1,0 +1,185 @@
+(footprint "OV2640"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(property "Reference" "REF**"
+		(at 0 -6 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "99140473-1c4b-4268-85f2-eb38b5f13d61")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "OV2640"
+		(at 0 1 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "e6b43266-a73f-4f48-9eaa-1e1f8e9a932a")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "a0d3cc19-655f-4de4-a50c-680884483ec9")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "806f49ac-65ef-4a62-9a1a-b5b283d414cc")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_rect
+		(start -5 -5)
+		(end 5 5)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill no)
+		(layer "F.SilkS")
+		(uuid "312f077b-d688-4708-9a03-4102cc000414")
+	)
+	(fp_line
+		(start -6.25 12.75)
+		(end -6.25 17)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Dwgs.User")
+		(uuid "c7f85629-30f8-4a53-a71a-85b506392a4c")
+	)
+	(fp_line
+		(start -6.25 17)
+		(end 6.25 17)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Dwgs.User")
+		(uuid "8c10e872-d126-4e65-9e98-0b3e590d2683")
+	)
+	(fp_line
+		(start -3 5)
+		(end -3 12.75)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Dwgs.User")
+		(uuid "e5009536-7ef0-465b-babf-0ae1931ae75b")
+	)
+	(fp_line
+		(start -3 12.75)
+		(end -6.25 12.75)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Dwgs.User")
+		(uuid "feb90247-d04e-4362-99e8-58ac0c9dade6")
+	)
+	(fp_line
+		(start 3 12.75)
+		(end 3 5)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Dwgs.User")
+		(uuid "fac8915d-9f96-4f4c-85f2-7b4c389a24bf")
+	)
+	(fp_line
+		(start 6.25 12.75)
+		(end 3 12.75)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Dwgs.User")
+		(uuid "77f4820a-da1f-4c7b-984a-81ecc5a5b1d2")
+	)
+	(fp_line
+		(start 6.25 17)
+		(end 6.25 12.75)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Dwgs.User")
+		(uuid "2224cef0-9bf4-4cad-8ead-ce4641e5484b")
+	)
+	(fp_circle
+		(center 0 0)
+		(end 4.3 0)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(fill no)
+		(layer "Edge.Cuts")
+		(uuid "25676778-5300-46f8-8b3f-d2ee875334a6")
+	)
+	(fp_rect
+		(start -4.75 -4.75)
+		(end 4.75 4.75)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "169d23c5-cd92-4819-8d14-0a8b31c704ed")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 0 2.5 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "43859c18-d498-4f19-bb78-522b25f37b91")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/models/camera_OV2640_001.step"
+		(offset
+			(xyz 0 0 2.17)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz -0 -180 -0)
+		)
+	)
+)

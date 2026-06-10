@@ -5,7 +5,7 @@
 	(uuid "2587f37d-78da-4231-b52a-c973f474ceb8")
 	(paper "A4")
 	(lib_symbols
-		(symbol "Connector_Generic_MountingPin:Conn_01x02_MountingPin"
+		(symbol "Connector_Generic:Conn_01x02"
 			(pin_names
 				(offset 1.016)
 				(hide yes)
@@ -25,15 +25,14 @@
 					)
 				)
 			)
-			(property "Value" "Conn_01x02_MountingPin"
-				(at 1.27 -5.08 0)
+			(property "Value" "Conn_01x02"
+				(at 0 -5.08 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(justify left)
 				)
 			)
 			(property "Footprint" ""
@@ -58,7 +57,7 @@
 					)
 				)
 			)
-			(property "Description" "Generic connectable mounting pin connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(property "Description" "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -80,7 +79,7 @@
 					)
 				)
 			)
-			(property "ki_fp_filters" "Connector*:*_1x??-1MP*"
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -91,7 +90,7 @@
 					)
 				)
 			)
-			(symbol "Conn_01x02_MountingPin_1_1"
+			(symbol "Conn_01x02_1_1"
 				(rectangle
 					(start -1.27 1.27)
 					(end 1.27 -3.81)
@@ -123,26 +122,6 @@
 					)
 					(fill
 						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.016 -4.572) (xy 1.016 -4.572)
-					)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(text "Mounting"
-					(at 0 -4.191 0)
-					(effects
-						(font
-							(size 0.381 0.381)
-						)
 					)
 				)
 				(pin passive line
@@ -181,28 +160,10 @@
 						)
 					)
 				)
-				(pin passive line
-					(at 0 -7.62 90)
-					(length 3.048)
-					(name "MountPin"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "MP"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Connector_Generic_MountingPin:Conn_01x06_MountingPin"
+		(symbol "Connector_Generic:Conn_01x06"
 			(pin_names
 				(offset 1.016)
 				(hide yes)
@@ -222,15 +183,14 @@
 					)
 				)
 			)
-			(property "Value" "Conn_01x06_MountingPin"
-				(at 1.27 -10.16 0)
+			(property "Value" "Conn_01x06"
+				(at 0 -10.16 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(justify left)
 				)
 			)
 			(property "Footprint" ""
@@ -255,7 +215,7 @@
 					)
 				)
 			)
-			(property "Description" "Generic connectable mounting pin connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(property "Description" "Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -277,7 +237,7 @@
 					)
 				)
 			)
-			(property "ki_fp_filters" "Connector*:*_1x??-1MP*"
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -288,7 +248,7 @@
 					)
 				)
 			)
-			(symbol "Conn_01x06_MountingPin_1_1"
+			(symbol "Conn_01x06_1_1"
 				(rectangle
 					(start -1.27 6.35)
 					(end 1.27 -8.89)
@@ -364,26 +324,6 @@
 					)
 					(fill
 						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.016 -9.652) (xy 1.016 -9.652)
-					)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(text "Mounting"
-					(at 0 -9.271 0)
-					(effects
-						(font
-							(size 0.381 0.381)
-						)
 					)
 				)
 				(pin passive line
@@ -487,24 +427,6 @@
 						)
 					)
 					(number "6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -12.7 90)
-					(length 3.048)
-					(name "MountPin"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "MP"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -953,22 +875,10 @@
 		(uuid "8bede405-62d9-4237-a67d-b48cf5ea7653")
 	)
 	(junction
-		(at 48.26 48.26)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "9b7af9fb-2f1c-4685-a367-7ab7c9e9bb43")
-	)
-	(junction
 		(at 49.53 76.2)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "ab6b8a5a-7704-4999-83f6-dc8ed2761227")
-	)
-	(junction
-		(at 76.2 96.52)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "c3bfd6e1-c767-4ee2-ae6c-7ca12eb0f5cb")
 	)
 	(junction
 		(at 58.42 78.74)
@@ -1021,16 +931,6 @@
 			(type default)
 		)
 		(uuid "0edc4be1-a094-4f2c-9fb6-5a1937ec77b2")
-	)
-	(wire
-		(pts
-			(xy 85.09 88.9) (xy 85.09 96.52)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2485a535-6386-4ab5-b7c0-d54a63455285")
 	)
 	(wire
 		(pts
@@ -1144,16 +1044,6 @@
 	)
 	(wire
 		(pts
-			(xy 85.09 96.52) (xy 76.2 96.52)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "70a44717-9911-4ef9-be38-e1a7da21ff83")
-	)
-	(wire
-		(pts
 			(xy 58.42 78.74) (xy 58.42 86.36)
 		)
 		(stroke
@@ -1171,26 +1061,6 @@
 			(type default)
 		)
 		(uuid "7d85ce47-cca6-45bd-9187-01219075e936")
-	)
-	(wire
-		(pts
-			(xy 58.42 40.64) (xy 58.42 48.26)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8797dfcb-b782-40c4-9c52-0d277989f1e4")
-	)
-	(wire
-		(pts
-			(xy 48.26 45.72) (xy 48.26 48.26)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "89c88b5d-2bf5-4de4-b8eb-7662f7ed69b3")
 	)
 	(wire
 		(pts
@@ -1241,16 +1111,6 @@
 			(type default)
 		)
 		(uuid "a55197bf-cc0f-46c6-b111-1161d3549b98")
-	)
-	(wire
-		(pts
-			(xy 58.42 48.26) (xy 48.26 48.26)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "adeeb956-f7ab-49ab-9cb6-5841df8f3ef9")
 	)
 	(wire
 		(pts
@@ -1354,7 +1214,7 @@
 	)
 	(wire
 		(pts
-			(xy 48.26 48.26) (xy 48.26 50.8)
+			(xy 48.26 45.72) (xy 48.26 50.8)
 		)
 		(stroke
 			(width 0)
@@ -1540,7 +1400,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_01005_0402Metric"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 38.862 90.17 90)
 			(hide yes)
 			(show_name no)
@@ -1700,7 +1560,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_01005_0402Metric"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 65.532 90.17 90)
 			(hide yes)
 			(show_name no)
@@ -1749,6 +1609,100 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector_Generic:Conn_01x06")
+		(at 85.09 76.2 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "36fac6a4-3d09-40ac-821f-b1e52afb99df")
+		(property "Reference" "J6"
+			(at 87.63 76.1999 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Menu"
+			(at 87.63 78.7399 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_JST:JST_PH_B6B-PH-K_1x06_P2.00mm_Vertical"
+			(at 85.09 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 85.09 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 85.09 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "7a7a1238-90b1-4977-8066-887860f8b67c")
+		)
+		(pin "2"
+			(uuid "446e3fed-047c-4c86-88d5-079ac1a58ff5")
+		)
+		(pin "5"
+			(uuid "85c20184-0948-4419-894d-469a79d2beca")
+		)
+		(pin "4"
+			(uuid "3ad335db-841f-4735-8618-02af68b65ed3")
+		)
+		(pin "3"
+			(uuid "ee15e243-f677-40f3-8085-74179f6c8523")
+		)
+		(pin "6"
+			(uuid "08535857-2b84-4457-be9d-5c4995699fce")
+		)
+		(instances
+			(project "Microphone board"
+				(path "/54b36551-a175-45db-a91c-236f7d72a35b/1257777c-ecb0-4c57-a28f-5d93c3c4e3b9"
+					(reference "J6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 76.2 90.17 0)
 		(unit 1)
@@ -1782,7 +1736,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_01005_0402Metric"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 74.422 90.17 90)
 			(hide yes)
 			(show_name no)
@@ -1831,8 +1785,8 @@
 		)
 	)
 	(symbol
-		(lib_id "Connector_Generic_MountingPin:Conn_01x06_MountingPin")
-		(at 85.09 76.2 0)
+		(lib_id "Connector_Generic:Conn_01x02")
+		(at 58.42 33.02 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -1841,9 +1795,9 @@
 		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "3a6bbfc4-1905-4cf3-9013-05a57accac88")
-		(property "Reference" "J6"
-			(at 87.63 76.5555 0)
+		(uuid "525eaf20-466f-421d-992d-684b79dee1b4")
+		(property "Reference" "J5"
+			(at 60.96 33.0199 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1853,8 +1807,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Menu"
-			(at 87.63 79.0955 0)
+		(property "Value" "Trigger"
+			(at 60.96 35.5599 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1864,8 +1818,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
-			(at 85.09 76.2 0)
+		(property "Footprint" "Connector_JST:JST_PH_B2B-PH-K_1x02_P2.00mm_Vertical"
+			(at 58.42 33.02 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1876,7 +1830,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 85.09 76.2 0)
+			(at 58.42 33.02 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1886,8 +1840,8 @@
 				)
 			)
 		)
-		(property "Description" "Generic connectable mounting pin connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 85.09 76.2 0)
+		(property "Description" "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 58.42 33.02 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1896,32 +1850,17 @@
 					(size 1.27 1.27)
 				)
 			)
-		)
-		(pin "1"
-			(uuid "53a89fe8-0641-4761-b67a-f715d6ce60c9")
 		)
 		(pin "2"
-			(uuid "b8941d78-ac05-4f57-8ea5-ca423b6b3b58")
+			(uuid "6c1fe136-fedb-443d-a394-a9c5e4cb3df6")
 		)
-		(pin "3"
-			(uuid "d1574e63-56d5-4086-8b94-3d9580353159")
-		)
-		(pin "4"
-			(uuid "b2f368b5-845e-4228-8eff-6a5e8eb83f86")
-		)
-		(pin "6"
-			(uuid "c1011a82-4421-453f-a16f-3ec88f42c381")
-		)
-		(pin "MP"
-			(uuid "9204f52f-8eed-4cb9-92db-d106bb51fe72")
-		)
-		(pin "5"
-			(uuid "21a0ea80-e82d-4cfa-8240-46f788077fcd")
+		(pin "1"
+			(uuid "3b773566-42f6-4379-ac04-d6fcfd5f0574")
 		)
 		(instances
 			(project "Microphone board"
 				(path "/54b36551-a175-45db-a91c-236f7d72a35b/1257777c-ecb0-4c57-a28f-5d93c3c4e3b9"
-					(reference "J6")
+					(reference "J5")
 					(unit 1)
 				)
 			)
@@ -1961,7 +1900,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_01005_0402Metric"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 46.482 41.91 90)
 			(hide yes)
 			(show_name no)
@@ -2043,7 +1982,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_01005_0402Metric"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 56.642 90.17 90)
 			(hide yes)
 			(show_name no)
@@ -2170,91 +2109,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Connector_Generic_MountingPin:Conn_01x02_MountingPin")
-		(at 58.42 33.02 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "79af8655-d3d2-4665-af1c-ead85ab21f49")
-		(property "Reference" "J8"
-			(at 60.96 33.3755 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "Trigger"
-			(at 60.96 35.9155 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 58.42 33.02 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 58.42 33.02 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Generic connectable mounting pin connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 58.42 33.02 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "d9034e49-e8d6-4207-a060-2e1c2b078e64")
-		)
-		(pin "2"
-			(uuid "640010d5-c247-45b5-92c0-d0f99532852a")
-		)
-		(pin "MP"
-			(uuid "d20d7067-ff4c-4b76-a891-38965d90cb2c")
-		)
-		(instances
-			(project "Microphone board"
-				(path "/54b36551-a175-45db-a91c-236f7d72a35b/1257777c-ecb0-4c57-a28f-5d93c3c4e3b9"
-					(reference "J8")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:R")
 		(at 49.53 90.17 0)
 		(unit 1)
@@ -2288,7 +2142,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_01005_0402Metric"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 47.752 90.17 90)
 			(hide yes)
 			(show_name no)

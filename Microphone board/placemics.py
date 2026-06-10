@@ -1,0 +1,49 @@
+import pcbnew
+import math
+
+def main():
+    # --- 1. Define Spiral Parameters ---
+    num_mics = 16
+    r_min = 0.012  # 1.2 cm (in meters)
+    r_max = 0.150  # 15.0 cm (in meters)
+    turns = 3.0
+    theta_max = turns * 2 * math.pi
+    a = math.log(r_max / r_min) / theta_max
+
+    # --- 2. Define PCB Origin (in millimeters) ---
+    # Change this to where you want the exact center of the array on your board canvas
+    center_x_mm = 150.0 
+    center_y_mm = 100.0
+
+    # Get the current PCB
+    board = pcbnew.GetBoard()
+
+    # --- 3. Calculate and Place ---
+    for i in range(num_mics):
+        # Calculate mathematically exact coordinates
+        theta = (i / (num_mics - 1)) * theta_max
+        r = r_min * math.exp(a * theta)
+        
+        # Convert from meters to millimeters
+        x_mm = (r * math.cos(theta)) * 1000.0
+        y_mm = (r * math.sin(theta)) * 1000.0
+        
+        # Calculate final canvas position
+        target_x = center_x_mm + x_mm
+        # Note: Subtracting y_mm because KiCad's Y-axis points down (positive Y is down)
+        target_y = center_y_mm - y_mm 
+        
+        # Find the microphone footprint
+        refdes = f"M{i+1}"
+        footprint = board.FindFootprintByReference(refdes)
+        
+        if footprint:
+            # Move the footprint (KiCad 6/7/8 syntax)
+            new_pos = pcbnew.VECTOR2I(pcbnew.FromMM(target_x), pcbnew.FromMM(target_y))
+            footprint.SetPosition(new_pos)
+            print(f"Placed {refdes} at X: {target_x:.2f} mm, Y: {target_y:.2f} mm")
+        else:
+            print(f"⚠️ Warning: Could not find footprint {refdes}")
+
+    # Refresh the display to show the updated positions
+    pcbnew.Refresh()

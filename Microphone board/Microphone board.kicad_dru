@@ -1,0 +1,4 @@
+(version 1)
+(rule "Diff Pair Skew"
+	(constraint skew (max 14mm))
+	(condition "A.NetClass == 'USB'"))

@@ -2806,6 +2806,16 @@
 	)
 	(wire
 		(pts
+			(xy 199.39 30.48) (xy 199.39 27.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2bb479c4-9e5e-4f4b-892c-595e40d493c1")
+	)
+	(wire
+		(pts
 			(xy 194.31 35.56) (xy 191.77 35.56)
 		)
 		(stroke
@@ -3103,6 +3113,16 @@
 			(type default)
 		)
 		(uuid "95a85be1-a6a9-476f-b8a1-bd39ced479e2")
+	)
+	(wire
+		(pts
+			(xy 199.39 27.94) (xy 204.47 27.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "96f4ccd6-ce8d-4148-a053-80ae8bf5a24a")
 	)
 	(wire
 		(pts
@@ -3406,7 +3426,7 @@
 	)
 	(wire
 		(pts
-			(xy 199.39 139.7) (xy 199.39 142.24)
+			(xy 204.47 27.94) (xy 204.47 30.48)
 		)
 		(stroke
 			(width 0)
@@ -4161,6 +4181,205 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector_Generic_MountingPin:Conn_01x40_MountingPin")
+		(at 199.39 86.36 0)
+		(mirror x)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "3d9f1fed-43cc-4a4f-87c1-b725adfc0368")
+		(property "Reference" "J1"
+			(at 201.93 86.0045 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "NHD-2.4-240320AF-CSXP"
+			(at 201.93 83.4645 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_FFC-FPC:Amphenol_F32R-1A7x1-11040_1x40-1MP_P0.5mm_Horizontal"
+			(at 199.39 86.36 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 199.39 86.36 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic connectable mounting pin connector, single row, 01x40, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 199.39 86.36 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "8"
+			(uuid "3b5ebaf8-692c-4583-b08c-b783d2bddd2b")
+		)
+		(pin "9"
+			(uuid "2e51925d-5052-4f81-8031-a0c28cca3587")
+		)
+		(pin "2"
+			(uuid "97493555-b0df-4549-93a3-c0eeeb024e20")
+		)
+		(pin "15"
+			(uuid "a46b095b-f1ee-4141-8479-da0b2ac6ebb2")
+		)
+		(pin "20"
+			(uuid "50251d5e-b073-4b9e-83e7-ddb748e34587")
+		)
+		(pin "11"
+			(uuid "44e2a0dc-66d9-4cd8-a0eb-985d28d40b41")
+		)
+		(pin "28"
+			(uuid "5ce30ca2-1932-4d65-98a1-8f29dd4bea18")
+		)
+		(pin "30"
+			(uuid "0b458b39-8f25-4edc-b5da-455e25f2fc24")
+		)
+		(pin "31"
+			(uuid "9065f350-778c-4fac-b40a-2ed2f5393417")
+		)
+		(pin "18"
+			(uuid "fda8d439-7e97-4939-b07d-5e5fe1ca7f32")
+		)
+		(pin "1"
+			(uuid "c9be778d-33c4-48ed-a3aa-aed41b9b99aa")
+		)
+		(pin "6"
+			(uuid "80c6793d-fa00-4c4a-a2e6-56ec56aa4330")
+		)
+		(pin "21"
+			(uuid "f0a7b840-6054-4bc9-9eba-339dd043c1f2")
+		)
+		(pin "4"
+			(uuid "685da374-7d81-4d25-b924-b307cd750ecd")
+		)
+		(pin "22"
+			(uuid "4211477a-4eba-4d24-86b2-85f307fac2a6")
+		)
+		(pin "5"
+			(uuid "6d51e28a-b1a7-4662-b0ee-5bc19272e67f")
+		)
+		(pin "23"
+			(uuid "eb153b66-50f0-4e19-a871-586f7954296f")
+		)
+		(pin "25"
+			(uuid "791d5e8b-fb7f-4297-9ff4-c35ad3ad55bf")
+		)
+		(pin "14"
+			(uuid "0f2ba3e6-c33c-4992-addd-05dd64799989")
+		)
+		(pin "3"
+			(uuid "420eecec-03cb-4523-bdf9-8f1a29327aae")
+		)
+		(pin "16"
+			(uuid "b57340eb-df74-4ef1-a815-37a3e4d9f4c2")
+		)
+		(pin "26"
+			(uuid "6b330f2e-07b1-4153-9e82-351fde484c96")
+		)
+		(pin "7"
+			(uuid "79d4e55c-2697-4689-a8b8-8218d601ba1e")
+		)
+		(pin "10"
+			(uuid "a9e969c3-ca32-4f96-9120-3c406803ee2e")
+		)
+		(pin "12"
+			(uuid "3ddae61b-e42b-49f9-8a06-2f4e8b7a1afe")
+		)
+		(pin "19"
+			(uuid "c54cfab5-4f46-419c-844c-9028509a352a")
+		)
+		(pin "13"
+			(uuid "c917abac-c410-4353-bd1f-aaaffa07dea2")
+		)
+		(pin "17"
+			(uuid "2ccbbd4c-3a76-4c80-8fad-570180e79c4b")
+		)
+		(pin "24"
+			(uuid "89cace52-59ed-466f-a37e-3276c5e53755")
+		)
+		(pin "27"
+			(uuid "2262b373-0ffb-41ff-888c-26c0226e4cee")
+		)
+		(pin "29"
+			(uuid "65f401e8-7d7a-4f3b-a4ad-ee21aabadb6e")
+		)
+		(pin "37"
+			(uuid "a4e69c2d-f636-4a94-bbeb-f62617237400")
+		)
+		(pin "40"
+			(uuid "6838c69c-5a80-41b6-84df-dea21edced09")
+		)
+		(pin "MP"
+			(uuid "dea17af9-cab3-419f-bcc6-8185fc15b99f")
+		)
+		(pin "39"
+			(uuid "9e068e85-127c-4c7c-91f8-e1bd57da5793")
+		)
+		(pin "33"
+			(uuid "4cbe42c3-8abf-46e7-a1b7-9f8a8d3a6a84")
+		)
+		(pin "34"
+			(uuid "12c27c8d-8459-4bce-8dc4-efb08b64376e")
+		)
+		(pin "35"
+			(uuid "51d7ad4d-8695-4113-91cc-5e43a25b6e7b")
+		)
+		(pin "36"
+			(uuid "2cbb5826-2af5-4ed3-be80-d3000f4b7a3c")
+		)
+		(pin "32"
+			(uuid "f8e5a26d-8141-45fb-88ea-05410366204d")
+		)
+		(pin "38"
+			(uuid "e6b67fb5-af10-4d8e-858a-a298e12dbafa")
+		)
+		(instances
+			(project "Microphone board"
+				(path "/54b36551-a175-45db-a91c-236f7d72a35b/933df564-ce74-4453-93df-6ff071652f89"
+					(reference "J1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "PCM_Transistor_MOSFET_AKL:AO3401A")
 		(at 77.47 88.9 0)
 		(unit 1)
@@ -4887,205 +5106,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Connector_Generic_MountingPin:Conn_01x40_MountingPin")
-		(at 199.39 83.82 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "de3a82e1-2a6c-423a-b552-06a41cb2aa0a")
-		(property "Reference" "J1"
-			(at 201.93 84.1755 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "NHD-2.4-240320AF-CSXP"
-			(at 201.93 86.7155 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Connector_FFC-FPC:Amphenol_F32R-1A7x1-11040_1x40-1MP_P0.5mm_Horizontal"
-			(at 199.39 83.82 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 199.39 83.82 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Generic connectable mounting pin connector, single row, 01x40, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 199.39 83.82 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "8"
-			(uuid "828ceaa9-6e03-403a-b57a-3718bc55a04d")
-		)
-		(pin "9"
-			(uuid "912b92cf-3fd2-4350-9a2c-f037468f5666")
-		)
-		(pin "2"
-			(uuid "0acceba7-6111-4e02-8baa-da4aa6f3e5f1")
-		)
-		(pin "15"
-			(uuid "9ab34333-2461-48c2-ab43-511af79849e6")
-		)
-		(pin "20"
-			(uuid "e36baa8b-71b3-473f-a20c-c36479902e1a")
-		)
-		(pin "11"
-			(uuid "a25dfcff-85ea-427e-b933-680d26e0cae1")
-		)
-		(pin "28"
-			(uuid "1e63c7f8-a216-40e7-9fe7-d057f46f1d9c")
-		)
-		(pin "30"
-			(uuid "417bc391-984f-44be-8211-fe8d469c7a10")
-		)
-		(pin "31"
-			(uuid "42ac4b47-a544-424d-b7ac-b0a01facbc4a")
-		)
-		(pin "18"
-			(uuid "f18a16fe-1f4d-4c5e-87c3-bc0a14e62acd")
-		)
-		(pin "1"
-			(uuid "dd8c44f5-ee57-4337-ba2b-230b77a36397")
-		)
-		(pin "6"
-			(uuid "d3b1ae28-5cfb-470e-939f-bfdee3cd768b")
-		)
-		(pin "21"
-			(uuid "c988c860-0557-4da8-a3b9-f01035546e13")
-		)
-		(pin "4"
-			(uuid "c3a2b3fa-a212-4bb5-92b3-d9f6215bbb99")
-		)
-		(pin "22"
-			(uuid "fa5e8109-f624-40ad-8612-5cc628665e9d")
-		)
-		(pin "5"
-			(uuid "d63c37b7-3fbe-4875-b3cd-6567c16ab63e")
-		)
-		(pin "23"
-			(uuid "038bd48a-2d28-47e9-a0b1-5f9569bb2adc")
-		)
-		(pin "25"
-			(uuid "3d781e09-a4f7-4649-9862-154523506cbb")
-		)
-		(pin "14"
-			(uuid "711173fb-1f1a-48fe-9aef-bed8902c52d4")
-		)
-		(pin "3"
-			(uuid "43a92a21-84aa-4ff7-8a46-3171f4469c4d")
-		)
-		(pin "16"
-			(uuid "089c3b1e-4a37-42f8-9935-ad8d85cb3162")
-		)
-		(pin "26"
-			(uuid "97aaf22e-74d4-4b51-bc8c-534900984e81")
-		)
-		(pin "7"
-			(uuid "8da7b6a7-b1f2-437a-b12f-a65d3e3bf68c")
-		)
-		(pin "10"
-			(uuid "d22c64f5-c94c-47e3-ba86-4df6f93411fa")
-		)
-		(pin "12"
-			(uuid "710c6a65-1c7d-4e00-a1c9-239f47447eb2")
-		)
-		(pin "19"
-			(uuid "fb48a9a7-d521-4a9f-93d3-9b5015d9b83c")
-		)
-		(pin "13"
-			(uuid "2ba70e90-cb39-48c2-b2f7-39c34487fc8a")
-		)
-		(pin "17"
-			(uuid "d8478826-4b6a-423e-bdbc-25858a1776bf")
-		)
-		(pin "24"
-			(uuid "2fd74a7b-e3a0-4f64-8d83-c3f3ad203698")
-		)
-		(pin "27"
-			(uuid "7b2ef04f-1c56-46dd-aaed-9d845ac63246")
-		)
-		(pin "29"
-			(uuid "b80c12bb-735c-41d2-8c0a-ae795d67effd")
-		)
-		(pin "37"
-			(uuid "cb30a2bb-0f1e-4c76-aa5e-120c440b5f33")
-		)
-		(pin "40"
-			(uuid "1c9aad86-b21c-420a-963f-8dc47cbde760")
-		)
-		(pin "MP"
-			(uuid "744dfd27-2993-4a45-ac59-c8f55643b8c5")
-		)
-		(pin "39"
-			(uuid "d7123610-af5b-4783-936c-87d680eda1ba")
-		)
-		(pin "33"
-			(uuid "816f8de6-a0cc-49f3-989c-00df4f2086b7")
-		)
-		(pin "34"
-			(uuid "4e012c87-8fc6-416d-80d6-e002ddea99ee")
-		)
-		(pin "35"
-			(uuid "1c159e6f-4f1f-4437-bf32-218001da20c0")
-		)
-		(pin "36"
-			(uuid "bb8b3440-f46d-4fb5-a28c-c31ac1fd7039")
-		)
-		(pin "32"
-			(uuid "34466a00-49c7-4b3d-a3d9-ca1fcd44351b")
-		)
-		(pin "38"
-			(uuid "260db1d7-7dff-4751-9e47-44ed5c73107a")
-		)
-		(instances
-			(project "Microphone board"
-				(path "/54b36551-a175-45db-a91c-236f7d72a35b/933df564-ce74-4453-93df-6ff071652f89"
-					(reference "J1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:C")
 		(at 140.97 81.28 0)
 		(unit 1)
@@ -5247,7 +5267,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 199.39 142.24 0)
+		(at 204.47 30.48 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -5258,7 +5278,7 @@
 		(fields_autoplaced yes)
 		(uuid "fd454f57-5a4a-41eb-a336-d1e9f3fa66e2")
 		(property "Reference" "#PWR096"
-			(at 199.39 148.59 0)
+			(at 204.47 36.83 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5269,7 +5289,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 199.39 147.32 0)
+			(at 204.47 35.56 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5279,7 +5299,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 199.39 142.24 0)
+			(at 204.47 30.48 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5290,7 +5310,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 199.39 142.24 0)
+			(at 204.47 30.48 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5301,7 +5321,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 199.39 142.24 0)
+			(at 204.47 30.48 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
