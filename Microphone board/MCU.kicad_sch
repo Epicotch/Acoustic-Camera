@@ -35052,6 +35052,16 @@
 	)
 	(wire
 		(pts
+			(xy 31.75 83.82) (xy 36.83 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "271be101-5afc-44cf-8875-dba5fdbb05d7")
+	)
+	(wire
+		(pts
 			(xy 321.31 195.58) (xy 321.31 198.12)
 		)
 		(stroke
@@ -37072,7 +37082,7 @@
 	)
 	(wire
 		(pts
-			(xy 22.86 83.82) (xy 36.83 83.82)
+			(xy 13.97 83.82) (xy 24.13 83.82)
 		)
 		(stroke
 			(width 0)
@@ -37102,7 +37112,7 @@
 	)
 	(wire
 		(pts
-			(xy 22.86 86.36) (xy 36.83 86.36)
+			(xy 13.97 86.36) (xy 36.83 86.36)
 		)
 		(stroke
 			(width 0)
@@ -38801,7 +38811,7 @@
 		(uuid "4dcb0c7a-1cd9-4aeb-a5bd-c76d300d9498")
 	)
 	(label "CAM_RST"
-		(at 22.86 86.36 0)
+		(at 13.97 86.36 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -39271,7 +39281,7 @@
 		(uuid "9d8c5519-9728-4a01-a4d4-ec1da64b690f")
 	)
 	(label "CAM_TIM"
-		(at 22.86 83.82 0)
+		(at 13.97 83.82 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -43074,6 +43084,85 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:R")
+		(at 27.94 83.82 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "6ee72be3-c770-40b3-853e-31be6ceb3877")
+		(property "Reference" "R67"
+			(at 27.94 78.994 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "22R"
+			(at 27.94 81.534 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 27.94 85.598 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 27.94 83.82 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 27.94 83.82 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "11f6127b-c966-41cb-8e7e-0baf53f25a2c")
+		)
+		(pin "2"
+			(uuid "aade8371-9ba3-4561-a5bb-5103bdc910f9")
+		)
+		(instances
+			(project "Microphone board"
+				(path "/54b36551-a175-45db-a91c-236f7d72a35b/d2dc67f8-a5f5-4154-8706-bc3e907f75c0"
+					(reference "R67")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C")
 		(at 101.6 200.66 0)
 		(unit 1)
@@ -43107,7 +43196,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 102.5652 204.47 0)
 			(hide yes)
 			(show_name no)
@@ -48398,7 +48487,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 113.9952 204.47 0)
 			(hide yes)
 			(show_name no)

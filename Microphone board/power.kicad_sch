@@ -3412,7 +3412,7 @@
 	)
 	(text "3V3A LDO"
 		(exclude_from_sim no)
-		(at 220.98 19.05 0)
+		(at 235.966 21.082 0)
 		(effects
 			(font
 				(size 2.54 2.54)
@@ -3461,16 +3461,6 @@
 			(justify left)
 		)
 		(uuid "94cb05ec-2dfa-411d-a031-06051507c075")
-	)
-	(text "ferrite choke?"
-		(exclude_from_sim no)
-		(at 230.632 45.974 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "f1789908-e47f-40b6-857c-e3b3d7c15263")
 	)
 	(junction
 		(at 44.45 58.42)
@@ -4029,6 +4019,16 @@
 	)
 	(wire
 		(pts
+			(xy 101.6 45.72) (xy 101.6 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "42b1c029-9642-41e6-9997-d7611574b40d")
+	)
+	(wire
+		(pts
 			(xy 29.21 48.26) (xy 29.21 58.42)
 		)
 		(stroke
@@ -4096,6 +4096,16 @@
 			(type default)
 		)
 		(uuid "4d432af4-3189-4761-9b49-4694614489a0")
+	)
+	(wire
+		(pts
+			(xy 218.44 33.02) (xy 218.44 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4fb0cb47-0da7-41e9-82b5-852b5b119d46")
 	)
 	(polyline
 		(pts
@@ -4310,6 +4320,16 @@
 	)
 	(wire
 		(pts
+			(xy 101.6 55.88) (xy 101.6 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "778e1837-83b6-4e2a-8a66-14661d0b7945")
+	)
+	(wire
+		(pts
 			(xy 53.34 125.73) (xy 55.88 125.73)
 		)
 		(stroke
@@ -4430,6 +4450,16 @@
 	)
 	(wire
 		(pts
+			(xy 218.44 53.34) (xy 218.44 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "86a2a0de-74fb-4fdc-ab0d-d11705f7e993")
+	)
+	(wire
+		(pts
 			(xy 52.07 140.97) (xy 55.88 140.97)
 		)
 		(stroke
@@ -4437,6 +4467,16 @@
 			(type default)
 		)
 		(uuid "8751b8c1-899f-4c0d-98fa-5a77d01a040e")
+	)
+	(wire
+		(pts
+			(xy 218.44 43.18) (xy 218.44 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "89666e54-5757-4ef9-bcf2-e703895dbea4")
 	)
 	(wire
 		(pts
@@ -4860,6 +4900,16 @@
 	)
 	(wire
 		(pts
+			(xy 101.6 35.56) (xy 101.6 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cbceab11-171b-46dd-967b-7b8d1c37d82e")
+	)
+	(wire
+		(pts
 			(xy 205.74 133.35) (xy 205.74 135.89)
 		)
 		(stroke
@@ -5120,7 +5170,7 @@
 	)
 	(polyline
 		(pts
-			(xy 215.9 11.43) (xy 215.9 76.2)
+			(xy 233.045 11.43) (xy 233.045 76.2)
 		)
 		(stroke
 			(width 0.508)
@@ -5624,6 +5674,84 @@
 			(project "Microphone board"
 				(path "/54b36551-a175-45db-a91c-236f7d72a35b/79046aa6-36da-44d7-85af-3c84d3bd172d"
 					(reference "L3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 218.44 33.02 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "0599b34e-d81e-4180-8e4c-90337946f2a9")
+		(property "Reference" "#PWR0157"
+			(at 218.44 36.83 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 218.44 27.94 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 218.44 33.02 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 218.44 33.02 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(at 218.44 33.02 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "ca70bb7f-dea1-465d-b3fa-898482c7488b")
+		)
+		(instances
+			(project "Microphone board"
+				(path "/54b36551-a175-45db-a91c-236f7d72a35b/79046aa6-36da-44d7-85af-3c84d3bd172d"
+					(reference "#PWR0157")
 					(unit 1)
 				)
 			)
@@ -6399,6 +6527,84 @@
 			(project "Microphone board"
 				(path "/54b36551-a175-45db-a91c-236f7d72a35b/79046aa6-36da-44d7-85af-3c84d3bd172d"
 					(reference "R51")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 218.44 55.88 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "25c97ca3-1392-42b0-9f0d-d8334b5d0e86")
+		(property "Reference" "#PWR0156"
+			(at 218.44 62.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 218.44 60.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 218.44 55.88 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 218.44 55.88 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 218.44 55.88 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "4220a56d-1e42-41a7-ac21-da3ff2cad92e")
+		)
+		(instances
+			(project "Microphone board"
+				(path "/54b36551-a175-45db-a91c-236f7d72a35b/79046aa6-36da-44d7-85af-3c84d3bd172d"
+					(reference "#PWR0156")
 					(unit 1)
 				)
 			)
@@ -8313,6 +8519,198 @@
 		)
 	)
 	(symbol
+		(lib_id "PCM_JLCPCB-Diodes:LED,0603,Red")
+		(at 218.44 49.53 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "7606b9e4-7a62-41c1-8cce-7e2d2c9889cb")
+		(property "Reference" "D4"
+			(at 220.98 48.1646 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Red"
+			(at 220.98 50.7047 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 0.8 0.8)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "PCM_JLCPCB:D_0603"
+			(at 216.662 49.53 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.lcsc.com/datasheet/lcsc_datasheet_1810231112_Hubei-KENTO-Elec-KT-0603R_C2286.pdf"
+			(at 218.44 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "-40°C~+85°C Red 0603 LED Indication - Discrete ROHS"
+			(at 218.44 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C2286"
+			(at 218.44 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Stock" "5373336"
+			(at 218.44 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Price" "0.009USD"
+			(at 218.44 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Process" "SMT"
+			(at 218.44 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Minimum Qty" "20"
+			(at 218.44 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Attrition Qty" "10"
+			(at 218.44 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Class" "Basic Component"
+			(at 218.44 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Category" "Optocouplers & LEDs & Infrared,Light Emitting Diodes (LED)"
+			(at 218.44 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Hubei KENTO Elec"
+			(at 218.44 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Part" "KT-0603R"
+			(at 218.44 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "e9c1de0e-2016-4f60-beb8-2272ba6e2745")
+		)
+		(pin "2"
+			(uuid "ba9edf04-66a8-4d4e-a3a8-de8202c9b24b")
+		)
+		(instances
+			(project "Microphone board"
+				(path "/54b36551-a175-45db-a91c-236f7d72a35b/79046aa6-36da-44d7-85af-3c84d3bd172d"
+					(reference "D4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 127 57.15 0)
 		(unit 1)
@@ -8541,6 +8939,166 @@
 			(project "Microphone board"
 				(path "/54b36551-a175-45db-a91c-236f7d72a35b/79046aa6-36da-44d7-85af-3c84d3bd172d"
 					(reference "#PWR0132")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+5V")
+		(at 101.6 35.56 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "83094373-2029-43b2-bc43-9c21cb1b2f4a")
+		(property "Reference" "#PWR0158"
+			(at 101.6 39.37 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+5V"
+			(at 101.6 30.48 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 101.6 35.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 101.6 35.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
+			(at 101.6 35.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "54b9cc8a-622f-4119-a4b2-29f78a98d4b0")
+		)
+		(instances
+			(project "Microphone board"
+				(path "/54b36551-a175-45db-a91c-236f7d72a35b/79046aa6-36da-44d7-85af-3c84d3bd172d"
+					(reference "#PWR0158")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 101.6 41.91 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "86be5143-1ba7-495a-8f5f-a2951f25aeaa")
+		(property "Reference" "R69"
+			(at 104.14 40.6399 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "470R"
+			(at 104.14 43.1799 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 99.822 41.91 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 101.6 41.91 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 101.6 41.91 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "70d7b0bc-84ad-488c-8ad1-18d1d0764244")
+		)
+		(pin "2"
+			(uuid "404f6af8-1207-41c7-8d2c-cb882a83f0a4")
+		)
+		(instances
+			(project "Microphone board"
+				(path "/54b36551-a175-45db-a91c-236f7d72a35b/79046aa6-36da-44d7-85af-3c84d3bd172d"
+					(reference "R69")
 					(unit 1)
 				)
 			)
@@ -9820,6 +10378,276 @@
 	)
 	(symbol
 		(lib_id "power:GND")
+		(at 101.6 58.42 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c875b6d1-e0f6-4aae-8a60-539ad5030c76")
+		(property "Reference" "#PWR0159"
+			(at 101.6 64.77 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 101.6 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 101.6 58.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 101.6 58.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 101.6 58.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "ac88bf08-819e-43e8-879a-8cf7713cad2b")
+		)
+		(instances
+			(project "Microphone board"
+				(path "/54b36551-a175-45db-a91c-236f7d72a35b/79046aa6-36da-44d7-85af-3c84d3bd172d"
+					(reference "#PWR0159")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "PCM_JLCPCB-Diodes:LED,0603,Red")
+		(at 101.6 52.07 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "cca751fc-9e98-4a21-ac61-e0b41e86ba8d")
+		(property "Reference" "D5"
+			(at 104.14 50.7046 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Red"
+			(at 104.14 53.2447 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 0.8 0.8)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "PCM_JLCPCB:D_0603"
+			(at 99.822 52.07 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.lcsc.com/datasheet/lcsc_datasheet_1810231112_Hubei-KENTO-Elec-KT-0603R_C2286.pdf"
+			(at 101.6 52.07 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "-40°C~+85°C Red 0603 LED Indication - Discrete ROHS"
+			(at 101.6 52.07 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C2286"
+			(at 101.6 52.07 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Stock" "5373336"
+			(at 101.6 52.07 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Price" "0.009USD"
+			(at 101.6 52.07 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Process" "SMT"
+			(at 101.6 52.07 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Minimum Qty" "20"
+			(at 101.6 52.07 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Attrition Qty" "10"
+			(at 101.6 52.07 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Class" "Basic Component"
+			(at 101.6 52.07 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Category" "Optocouplers & LEDs & Infrared,Light Emitting Diodes (LED)"
+			(at 101.6 52.07 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Hubei KENTO Elec"
+			(at 101.6 52.07 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Part" "KT-0603R"
+			(at 101.6 52.07 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "4bee0320-0ad1-4993-a559-1bba894b53ae")
+		)
+		(pin "2"
+			(uuid "b516ee84-6104-46f0-84fb-81676929b25f")
+		)
+		(instances
+			(project "Microphone board"
+				(path "/54b36551-a175-45db-a91c-236f7d72a35b/79046aa6-36da-44d7-85af-3c84d3bd172d"
+					(reference "D5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
 		(at 33.02 151.13 0)
 		(unit 1)
 		(body_style 1)
@@ -10396,6 +11224,88 @@
 			(project "Microphone board"
 				(path "/54b36551-a175-45db-a91c-236f7d72a35b/79046aa6-36da-44d7-85af-3c84d3bd172d"
 					(reference "#PWR0122")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 218.44 39.37 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f4581684-1240-46ff-913e-4661f6463f2e")
+		(property "Reference" "R68"
+			(at 220.98 38.0999 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "470R"
+			(at 220.98 40.6399 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 216.662 39.37 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 218.44 39.37 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 218.44 39.37 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "84778014-b368-44f6-b3e0-9e496f72cc12")
+		)
+		(pin "2"
+			(uuid "19b8b99e-8959-4638-881f-b2a8af75d859")
+		)
+		(instances
+			(project "Microphone board"
+				(path "/54b36551-a175-45db-a91c-236f7d72a35b/79046aa6-36da-44d7-85af-3c84d3bd172d"
+					(reference "R68")
 					(unit 1)
 				)
 			)

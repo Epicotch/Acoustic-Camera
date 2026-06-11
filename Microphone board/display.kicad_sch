@@ -2332,12 +2332,6 @@
 		(uuid "03e1db7c-2225-45f9-818f-fa23b9f69b9b")
 	)
 	(junction
-		(at 191.77 58.42)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "0c76063b-bae9-454d-a6aa-c4c578ca4120")
-	)
-	(junction
 		(at 191.77 127)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2562,6 +2556,15 @@
 		(uuid "9282588c-55ef-4378-bde3-0aca8d60204f")
 	)
 	(bus_entry
+		(at 176.53 55.88)
+		(size 2.54 2.54)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "92f715f9-41e0-4334-a753-e1e6633a5403")
+	)
+	(bus_entry
 		(at 176.53 68.58)
 		(size 2.54 2.54)
 		(stroke
@@ -2646,23 +2649,13 @@
 	)
 	(wire
 		(pts
-			(xy 191.77 58.42) (xy 191.77 111.76)
+			(xy 191.77 55.88) (xy 191.77 111.76)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "06bb9ce5-3053-4b55-847b-3be4ad86c747")
-	)
-	(wire
-		(pts
-			(xy 191.77 55.88) (xy 191.77 58.42)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "07b9b1b3-3ede-47af-b85e-f538d3f19b66")
 	)
 	(wire
 		(pts
@@ -2683,16 +2676,6 @@
 			(type default)
 		)
 		(uuid "095f5fac-7e96-48d5-80da-b1b0636568d6")
-	)
-	(wire
-		(pts
-			(xy 191.77 58.42) (xy 194.31 58.42)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "09bf8b6a-0334-4b56-9770-89a86e373269")
 	)
 	(wire
 		(pts
@@ -3234,6 +3217,16 @@
 		)
 		(uuid "bcb27fbc-51b6-4c5e-a1b9-02a36b22fb3b")
 	)
+	(wire
+		(pts
+			(xy 179.07 58.42) (xy 194.31 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c0d36088-5ee8-407e-aafc-014054c183b3")
+	)
 	(bus
 		(pts
 			(xy 176.53 34.29) (xy 176.53 134.62)
@@ -3553,6 +3546,16 @@
 			(justify left bottom)
 		)
 		(uuid "aa4dd685-dbd0-4ec4-9ada-c37abd3ff674")
+	)
+	(label "FMC_NE1"
+		(at 179.07 58.42 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "b1c9d5c3-d59d-4740-8f0a-873b6df2381c")
 	)
 	(label "FMC_D14"
 		(at 179.07 104.14 0)
@@ -4214,7 +4217,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Connector_FFC-FPC:Amphenol_F32R-1A7x1-11040_1x40-1MP_P0.5mm_Horizontal"
+		(property "Footprint" "Connector_FFC-FPC:Hirose_FH12-40S-0.5SH_1x40-1MP_P0.50mm_Horizontal"
 			(at 199.39 86.36 0)
 			(hide yes)
 			(show_name no)

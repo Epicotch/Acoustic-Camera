@@ -7424,7 +7424,7 @@
 		(dnp no)
 		(uuid "3118ed90-0c2f-400e-a3bf-30ed9bc18a9d")
 		(property "Reference" "R25"
-			(at 163.83 72.644 90)
+			(at 163.068 72.644 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7433,7 +7433,7 @@
 				)
 			)
 		)
-		(property "Value" "33R"
+		(property "Value" "22R"
 			(at 172.212 72.644 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11435,7 +11435,7 @@
 		(dnp no)
 		(uuid "8fe25ab9-e510-452f-8fc4-7e79d997f356")
 		(property "Reference" "R27"
-			(at 163.83 82.804 90)
+			(at 163.068 82.804 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -11444,7 +11444,7 @@
 				)
 			)
 		)
-		(property "Value" "33R"
+		(property "Value" "22R"
 			(at 172.212 82.804 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12160,7 +12160,7 @@
 				)
 			)
 		)
-		(property "Value" "33R"
+		(property "Value" "22R"
 			(at 172.212 87.884 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15605,7 +15605,7 @@
 		(dnp no)
 		(uuid "ef184b55-84ba-41f2-adb2-fb5c3410cfe6")
 		(property "Reference" "R26"
-			(at 163.83 77.724 90)
+			(at 163.068 77.724 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15614,7 +15614,7 @@
 				)
 			)
 		)
-		(property "Value" "33R"
+		(property "Value" "22R"
 			(at 172.212 77.724 90)
 			(show_name no)
 			(do_not_autoplace no)
