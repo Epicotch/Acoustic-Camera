@@ -550,7 +550,7 @@
         "tuning_profile": "Parallel"
       },
       {
-        "diff_pair_gap": 0.13,
+        "diff_pair_gap": 0.31,
         "diff_pair_width": 0.31,
         "name": "USB",
         "pcb_color": "rgb(68, 255, 0)",
@@ -763,7 +763,7 @@
         "uuid": "54b36551-a175-45db-a91c-236f7d72a35b"
       }
     ],
-    "used_designators": "R67-69,J1,#PWR156-159,D4-5",
+    "used_designators": "",
     "variants": []
   },
   "sheets": [
