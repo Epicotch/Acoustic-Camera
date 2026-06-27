@@ -55,6 +55,8 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
+extern DMA_HandleTypeDef hdma_i2c4_rx;
+extern DMA_HandleTypeDef hdma_i2c4_tx;
 extern PCD_HandleTypeDef hpcd_USB_OTG_FS;
 extern DMA_HandleTypeDef hdma_dcmi;
 /* USER CODE BEGIN EV */
@@ -225,6 +227,20 @@ void OTG_FS_IRQHandler(void)
   /* USER CODE BEGIN OTG_FS_IRQn 1 */
 
   /* USER CODE END OTG_FS_IRQn 1 */
+}
+
+/**
+  * @brief This function handles HSEM2 global interrupt.
+  */
+void HSEM2_IRQHandler(void)
+{
+  /* USER CODE BEGIN HSEM2_IRQn 0 */
+
+  /* USER CODE END HSEM2_IRQn 0 */
+  HAL_HSEM_IRQHandler();
+  /* USER CODE BEGIN HSEM2_IRQn 1 */
+
+  /* USER CODE END HSEM2_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */

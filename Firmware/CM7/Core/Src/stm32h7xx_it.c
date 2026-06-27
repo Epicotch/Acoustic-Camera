@@ -55,12 +55,8 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
-extern DMA_HandleTypeDef hdma_dfsdm1_flt0;
-extern DMA_HandleTypeDef hdma_dfsdm1_flt1;
-extern DMA_HandleTypeDef hdma_dfsdm1_flt2;
-extern DMA_HandleTypeDef hdma_dfsdm1_flt3;
-extern DMA_HandleTypeDef hdma_sai1_a;
-extern DMA_HandleTypeDef hdma_sai4_a;
+extern DMA_HandleTypeDef hdma_i2c4_rx;
+extern DMA_HandleTypeDef hdma_i2c4_tx;
 /* USER CODE BEGIN EV */
 
 /* USER CODE END EV */
@@ -204,87 +200,45 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
-  * @brief This function handles DMA1 stream1 global interrupt.
+  * @brief This function handles HSEM1 global interrupt.
   */
-void DMA1_Stream1_IRQHandler(void)
+void HSEM1_IRQHandler(void)
 {
-  /* USER CODE BEGIN DMA1_Stream1_IRQn 0 */
+  /* USER CODE BEGIN HSEM1_IRQn 0 */
 
-  /* USER CODE END DMA1_Stream1_IRQn 0 */
-  HAL_DMA_IRQHandler(&hdma_dfsdm1_flt0);
-  /* USER CODE BEGIN DMA1_Stream1_IRQn 1 */
+  /* USER CODE END HSEM1_IRQn 0 */
+  HAL_HSEM_IRQHandler();
+  /* USER CODE BEGIN HSEM1_IRQn 1 */
 
-  /* USER CODE END DMA1_Stream1_IRQn 1 */
+  /* USER CODE END HSEM1_IRQn 1 */
 }
 
 /**
-  * @brief This function handles DMA1 stream2 global interrupt.
+  * @brief This function handles BDMA channel1 global interrupt.
   */
-void DMA1_Stream2_IRQHandler(void)
+void BDMA_Channel1_IRQHandler(void)
 {
-  /* USER CODE BEGIN DMA1_Stream2_IRQn 0 */
+  /* USER CODE BEGIN BDMA_Channel1_IRQn 0 */
 
-  /* USER CODE END DMA1_Stream2_IRQn 0 */
-  HAL_DMA_IRQHandler(&hdma_dfsdm1_flt1);
-  /* USER CODE BEGIN DMA1_Stream2_IRQn 1 */
+  /* USER CODE END BDMA_Channel1_IRQn 0 */
+  HAL_DMA_IRQHandler(&hdma_i2c4_rx);
+  /* USER CODE BEGIN BDMA_Channel1_IRQn 1 */
 
-  /* USER CODE END DMA1_Stream2_IRQn 1 */
+  /* USER CODE END BDMA_Channel1_IRQn 1 */
 }
 
 /**
-  * @brief This function handles DMA1 stream3 global interrupt.
+  * @brief This function handles BDMA channel2 global interrupt.
   */
-void DMA1_Stream3_IRQHandler(void)
+void BDMA_Channel2_IRQHandler(void)
 {
-  /* USER CODE BEGIN DMA1_Stream3_IRQn 0 */
+  /* USER CODE BEGIN BDMA_Channel2_IRQn 0 */
 
-  /* USER CODE END DMA1_Stream3_IRQn 0 */
-  HAL_DMA_IRQHandler(&hdma_dfsdm1_flt2);
-  /* USER CODE BEGIN DMA1_Stream3_IRQn 1 */
+  /* USER CODE END BDMA_Channel2_IRQn 0 */
+  HAL_DMA_IRQHandler(&hdma_i2c4_tx);
+  /* USER CODE BEGIN BDMA_Channel2_IRQn 1 */
 
-  /* USER CODE END DMA1_Stream3_IRQn 1 */
-}
-
-/**
-  * @brief This function handles DMA1 stream4 global interrupt.
-  */
-void DMA1_Stream4_IRQHandler(void)
-{
-  /* USER CODE BEGIN DMA1_Stream4_IRQn 0 */
-
-  /* USER CODE END DMA1_Stream4_IRQn 0 */
-  HAL_DMA_IRQHandler(&hdma_dfsdm1_flt3);
-  /* USER CODE BEGIN DMA1_Stream4_IRQn 1 */
-
-  /* USER CODE END DMA1_Stream4_IRQn 1 */
-}
-
-/**
-  * @brief This function handles DMA1 stream5 global interrupt.
-  */
-void DMA1_Stream5_IRQHandler(void)
-{
-  /* USER CODE BEGIN DMA1_Stream5_IRQn 0 */
-
-  /* USER CODE END DMA1_Stream5_IRQn 0 */
-  HAL_DMA_IRQHandler(&hdma_sai1_a);
-  /* USER CODE BEGIN DMA1_Stream5_IRQn 1 */
-
-  /* USER CODE END DMA1_Stream5_IRQn 1 */
-}
-
-/**
-  * @brief This function handles BDMA channel0 global interrupt.
-  */
-void BDMA_Channel0_IRQHandler(void)
-{
-  /* USER CODE BEGIN BDMA_Channel0_IRQn 0 */
-
-  /* USER CODE END BDMA_Channel0_IRQn 0 */
-  HAL_DMA_IRQHandler(&hdma_sai4_a);
-  /* USER CODE BEGIN BDMA_Channel0_IRQn 1 */
-
-  /* USER CODE END BDMA_Channel0_IRQn 1 */
+  /* USER CODE END BDMA_Channel2_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */

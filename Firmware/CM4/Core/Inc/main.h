@@ -51,16 +51,38 @@ extern "C" {
 
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
-void MX_SDMMC1_SD_Init(void);
-void MX_I2C1_Init(void);
 
 /* USER CODE BEGIN EFP */
 
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define SDIO_DET_Pin GPIO_PIN_4
-#define SDIO_DET_GPIO_Port GPIOD
+#define SDMMC_DET_Pin GPIO_PIN_1
+#define SDMMC_DET_GPIO_Port GPIOI
+#define CAM_RST_Pin GPIO_PIN_6
+#define CAM_RST_GPIO_Port GPIOB
+#define POWER_STATUS_Pin GPIO_PIN_2
+#define POWER_STATUS_GPIO_Port GPIOK
+#define BACKLIGHT_Pin GPIO_PIN_10
+#define BACKLIGHT_GPIO_Port GPIOH
+#define STATUS_LED_Pin GPIO_PIN_5
+#define STATUS_LED_GPIO_Port GPIOA
+#define LCD_RST_Pin GPIO_PIN_15
+#define LCD_RST_GPIO_Port GPIOB
+#define TRIGGER_Pin GPIO_PIN_3
+#define TRIGGER_GPIO_Port GPIOA
+#define LEFT_Pin GPIO_PIN_4
+#define LEFT_GPIO_Port GPIOA
+#define DOWN_Pin GPIO_PIN_5
+#define DOWN_GPIO_Port GPIOC
+#define BUTTON_Pin GPIO_PIN_0
+#define BUTTON_GPIO_Port GPIOB
+#define RIGHT_Pin GPIO_PIN_3
+#define RIGHT_GPIO_Port GPIOJ
+#define UP_Pin GPIO_PIN_4
+#define UP_GPIO_Port GPIOJ
+#define TEAR_Pin GPIO_PIN_14
+#define TEAR_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 
