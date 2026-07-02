@@ -32,6 +32,11 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
+#include "defines.h"
+#include "ipc_messages.h"
+#include "usbd_cdc_if.h"
+#include <string.h>
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -64,17 +69,31 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+static uint32_t message;
+static volatile uint8_t message_received;
+static volatile message_notif_t received_data;
 
+static volatile uint8_t text_received;
+static volatile uint8_t acoustic_received;
+
+char recv_text_buf[TEXT_MSG_SIZE];
+strength_t recv_acoustic_buf[ACOUSTIC_SIZE];
+
+static struct rpmsg_endpoint rp_endpoint;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN PFP */
 
+static int rpmsg_recv_callback(struct rpmsg_endpoint *ept, void *data, size_t len, uint32_t src, void *priv);
+void write_log(char *str, uint16_t size);
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+uint8_t TxBuffer[128];
+uint8_t TxBufferLen = sizeof(TxBuffer);
 /* USER CODE END 0 */
 
 /**
@@ -131,12 +150,29 @@ int main(void)
   MX_TIM5_Init();
   /* USER CODE BEGIN 2 */
 
+  /* Inilitize the mailbox use notify the other core on new message */
+  MAILBOX_Init();
+
+  /* Inilitize OpenAmp and libmetal libraries */
+  if (MX_OPENAMP_Init(RPMSG_REMOTE, NULL)!= HAL_OK)
+    Error_Handler();
+
+
+  /* create a endpoint for rmpsg communication */
+  uint8_t status = OPENAMP_create_endpoint(&rp_endpoint, RPMSG_CHAN_NAME, RPMSG_ADDR_ANY,
+                                    rpmsg_recv_callback, NULL);
+  if (status < 0)
+  {
+    Error_Handler();
+  }
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    OPENAMP_check_for_message();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -172,7 +208,50 @@ void PeriphCommonClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+static int rpmsg_recv_callback(struct rpmsg_endpoint *ept, void *data,
+               size_t len, uint32_t src, void *priv)
+{
+  received_data = *((message_notif_t *) data);
 
+  if (received_data.type == MSG_TEXT) {
+    memcpy(recv_text_buf, (const char *) received_data.address, sizeof(recv_text_buf));
+    #ifdef DEBUG
+    printf("Recieved text from CM7: %s\n", recv_text_buf);
+    #endif
+  }
+
+  message_received=1;
+
+  return 0;
+}
+
+void write_log(char *str, uint16_t size) {
+  //TODO: add formatting and whatnot
+
+}
+
+/**
+ * @brief Retargets the C library printf function to the USART.
+ * None
+ * @retval None
+ */
+int _write(int file, char *ptr, int len)
+{
+  /* Send to ITM for debugging */
+  for (int i = 0; i < len; i++) {
+    ITM_SendChar(ptr[i]);
+  }
+  
+  /* Send the entire buffer at once over USB CDC */
+  /* Note: If you call printf in rapid succession, you may still need 
+     a while(CDC_Transmit_FS(...) == USBD_BUSY) loop, but use caution 
+     as it can hang the MCU if the USB cord is unplugged. */
+  CDC_Transmit_FS((uint8_t*)ptr, len);
+  
+  //TODO: also log to SD card here
+  
+  return len;
+}
 /* USER CODE END 4 */
 
 /**
@@ -186,6 +265,10 @@ void Error_Handler(void)
   __disable_irq();
   while (1)
   {
+    HAL_GPIO_WritePin(STATUS_LED_GPIO_Port, STATUS_LED_Pin, GPIO_PIN_SET);
+    HAL_Delay(1000);
+    HAL_GPIO_WritePin(STATUS_LED_GPIO_Port, STATUS_LED_Pin, GPIO_PIN_RESET);
+    HAL_Delay(1000);
   }
   /* USER CODE END Error_Handler_Debug */
 }

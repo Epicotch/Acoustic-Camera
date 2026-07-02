@@ -79,11 +79,35 @@ if((CMAKE_C_STANDARD EQUAL 90) OR (CMAKE_C_STANDARD EQUAL 99))
     message(ERROR "Generated code requires C11 or higher")
 endif()
 
+# 1. Preprocessor defines for Cortex-M7
+add_compile_definitions(ARM_MATH_CM7 D__FPU_PRESENT=1 ARM_MATH_LOOPUNROLL)
 
+# 2. Stepping UP one level to reach the shared Drivers folder
+target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
+    "${CMAKE_CURRENT_SOURCE_DIR}/../Drivers/CMSIS/DSP/Include"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../Drivers/CMSIS/DSP/PrivateInclude"
+)
 
+# 3. Add ONLY the specific category source files you need
+# This avoids the "multiple definitions" caused by GLOB_RECURSE bundling
+target_sources(${CMAKE_PROJECT_NAME} PRIVATE
+    "${CMAKE_CURRENT_SOURCE_DIR}/../Drivers/CMSIS/DSP/Source/BasicMathFunctions/BasicMathFunctions.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../Drivers/CMSIS/DSP/Source/CommonTables/CommonTables.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../Drivers/CMSIS/DSP/Source/TransformFunctions/TransformFunctions.c"
+    
+    # Uncomment these if your application requires them down the road:
+    # "${CMAKE_CURRENT_SOURCE_DIR}/../Drivers/CMSIS/DSP/Source/FilteringFunctions/FilteringFunctions.c"
+    # "${CMAKE_CURRENT_SOURCE_DIR}/../Drivers/CMSIS/DSP/Source/MatrixFunctions/MatrixFunctions.c"
+    # "${CMAKE_CURRENT_SOURCE_DIR}/../Drivers/CMSIS/DSP/Source/StatisticsFunctions/StatisticsFunctions.c"
+    # "${CMAKE_CURRENT_SOURCE_DIR}/../Drivers/CMSIS/DSP/Source/SupportFunctions/SupportFunctions.c"
+    # "${CMAKE_CURRENT_SOURCE_DIR}/../Drivers/CMSIS/DSP/Source/FastMathFunctions/FastMathFunctions.c"
+)
 
+# Add the Common/Inc directory to the target's include paths
+target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
+    "${CMAKE_CURRENT_SOURCE_DIR}/../Common/Inc"
+)
 
-
-
-
-
+target_sources(${CMAKE_PROJECT_NAME} PRIVATE
+    "${CMAKE_CURRENT_SOURCE_DIR}/../Common/Src/ipc_messages.c"
+)

@@ -10,7 +10,7 @@ set(MX_Defines_Syms
 	RPMSG_BUFFER_SIZE=512 
 	VIRTIO_MASTER_ONLY 
 	NO_ATOMIC_64_SUPPORT 
-	USE_PWR_LDO_SUPPLY
+	USE_PWR_SMPS_1V8_SUPPLIES_LDO
     $<$<CONFIG:Debug>:DEBUG>
 )
 # STM32CubeMX generated include paths
@@ -20,6 +20,7 @@ set(MX_Include_Dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/../Middlewares/Third_Party/OpenAMP/open-amp/lib/include
     ${CMAKE_CURRENT_SOURCE_DIR}/../Middlewares/Third_Party/OpenAMP/libmetal/lib/include
     ${CMAKE_CURRENT_SOURCE_DIR}/../Middlewares/Third_Party/OpenAMP/libmetal/lib/include/metal/compiler/gcc
+    ${CMAKE_CURRENT_SOURCE_DIR}/../Middlewares/Third_Party/OpenAMP/virtual_driver
     ${CMAKE_CURRENT_SOURCE_DIR}/../Middlewares/Third_Party/OpenAMP/open-amp/lib/rpmsg
     ${CMAKE_CURRENT_SOURCE_DIR}/../Drivers/STM32H7xx_HAL_Driver/Inc
     ${CMAKE_CURRENT_SOURCE_DIR}/../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy
@@ -97,12 +98,17 @@ set(OpenAmp_Src
     ${CMAKE_CURRENT_SOURCE_DIR}/../Middlewares/Third_Party/OpenAMP/open-amp/lib/virtio/virtqueue.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../Middlewares/Third_Party/OpenAMP/libmetal/lib/system/generic/cortexm/sys.c
 )
+
 # Link directories setup
 set(MX_LINK_DIRS
 
+    ${CMAKE_CURRENT_SOURCE_DIR}/../Middlewares/ST/ARM/DSP/Lib
 )
 # Project libraries
 set (MX_LINK_LIBS 
+ "-Wl,--start-group" 
+	:libarm_cortexM4lf_math.a
+ "-Wl,--end-group"
     STM32_Drivers
     ${TOOLCHAIN_LINK_LIBRARIES}
     OpenAmp	

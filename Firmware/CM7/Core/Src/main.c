@@ -21,13 +21,21 @@
 #include "bdma.h"
 #include "dma.h"
 #include "i2c.h"
+#include "mbox_hsem.h"
 #include "openamp.h"
+#include "openamp/rpmsg.h"
 #include "sai.h"
 #include "sdmmc.h"
 #include "gpio.h"
+#include <stddef.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+
+#include <string.h>
+#include "arm_math.h"
+#include "ipc_messages.h"
+#include "defines.h"
 
 /* USER CODE END Includes */
 
@@ -62,6 +70,14 @@
 
 /* USER CODE BEGIN PV */
 
+message_notif_t message_notif;
+static volatile int message_received;
+static volatile int service_created;
+volatile unsigned int received_data_str;
+static struct rpmsg_endpoint rp_endpoint;
+
+static volatile message_notif_t received_data;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -69,7 +85,9 @@ void SystemClock_Config(void);
 void PeriphCommonClock_Config(void);
 static void MPU_Config(void);
 /* USER CODE BEGIN PFP */
-
+static int rpmsg_recv_callback(struct rpmsg_endpoint *ept, void *data, size_t len, uint32_t src, void *priv);
+void service_destroy_cb(struct rpmsg_endpoint *ept);
+void new_service_cb(struct rpmsg_device *rdev, const char *name, uint32_t dest);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -162,12 +180,38 @@ Error_Handler();
   MX_I2C4_Init();
   /* USER CODE BEGIN 2 */
 
+  MAILBOX_Init();
+  rpmsg_init_ept(&rp_endpoint, RPMSG_CHAN_NAME, RPMSG_ADDR_ANY, RPMSG_ADDR_ANY, NULL, NULL);
+  if (MX_OPENAMP_Init(RPMSG_MASTER, new_service_cb) != HAL_OK)
+ 	{
+ 		Error_Handler();
+ 	}
+
+  OPENAMP_Wait_EndPointready(&rp_endpoint);
+
+  uint32_t count = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    snprintf(text_ping, sizeof(text_ping), "Count: %u", count);
+    message_notif.address = (uintptr_t)text_ping;
+    message_notif.length = sizeof(text_ping);
+    message_notif.type = MSG_TEXT;
+    OPENAMP_send(&rp_endpoint, &message_notif, sizeof(message_notif));
+    HAL_Delay(1000);
+    count++;
+
+    snprintf(text_pong, sizeof(text_ping), "Count: %u", count);
+    message_notif.address = (uintptr_t)text_pong;
+    message_notif.length = sizeof(text_pong);
+    message_notif.type = MSG_TEXT;
+    OPENAMP_send(&rp_endpoint, &message_notif, sizeof(message_notif));
+    HAL_Delay(1000);
+    count++;
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -186,7 +230,7 @@ void SystemClock_Config(void)
 
   /** Supply configuration update enable
   */
-  HAL_PWREx_ConfigSupply(PWR_LDO_SUPPLY);
+  HAL_PWREx_ConfigSupply(PWR_SMPS_1V8_SUPPLIES_LDO);
 
   /** Configure the main internal regulator output voltage
   */
@@ -261,7 +305,31 @@ void PeriphCommonClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+static int rpmsg_recv_callback(struct rpmsg_endpoint *ept, void *data,
+                size_t len, uint32_t src, void *priv)
+{
+  // TODO: update this to parse the message and actually do stuff with it
+  
+  message_received=1;
 
+  return 0;
+}
+
+void service_destroy_cb(struct rpmsg_endpoint *ept)
+{
+  /* this function is called while remote endpoint as been destroyed, the
+   * service is no more available
+   */
+  service_created = 0;
+}
+
+void new_service_cb(struct rpmsg_device *rdev, const char *name, uint32_t dest)
+{
+  /* create a endpoint for rmpsg communication */
+  OPENAMP_create_endpoint(&rp_endpoint, name, dest, rpmsg_recv_callback,
+                          service_destroy_cb);
+  service_created = 1;
+}
 /* USER CODE END 4 */
 
  /* MPU Configuration */
@@ -278,10 +346,10 @@ void MPU_Config(void)
   MPU_InitStruct.Enable = MPU_REGION_ENABLE;
   MPU_InitStruct.Number = MPU_REGION_NUMBER0;
   MPU_InitStruct.BaseAddress = 0x38000000;
-  MPU_InitStruct.Size = MPU_REGION_SIZE_4GB;
-  MPU_InitStruct.SubRegionDisable = 0x87;
+  MPU_InitStruct.Size = MPU_REGION_SIZE_64KB;
+  MPU_InitStruct.SubRegionDisable = 0;
   MPU_InitStruct.TypeExtField = MPU_TEX_LEVEL0;
-  MPU_InitStruct.AccessPermission = MPU_REGION_NO_ACCESS;
+  MPU_InitStruct.AccessPermission = MPU_REGION_FULL_ACCESS;
   MPU_InitStruct.DisableExec = MPU_INSTRUCTION_ACCESS_DISABLE;
   MPU_InitStruct.IsShareable = MPU_ACCESS_SHAREABLE;
   MPU_InitStruct.IsCacheable = MPU_ACCESS_NOT_CACHEABLE;

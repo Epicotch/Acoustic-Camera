@@ -1,0 +1,22 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Delay For M7 Startup",
+            "type": "shell",
+            "command": "sleep 2",
+            "windows": {
+                "command": "powershell -Command \"Start-Sleep -Seconds 2\""
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "problemMatcher": []
+        }
+    ]
+}
