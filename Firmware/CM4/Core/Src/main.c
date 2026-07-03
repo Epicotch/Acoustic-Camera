@@ -24,6 +24,7 @@
 #include "dma.h"
 #include "fatfs.h"
 #include "openamp.h"
+#include "stm32h7xx_hal_gpio.h"
 #include "tim.h"
 #include "usb_device.h"
 #include "gpio.h"
@@ -69,6 +70,8 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+message_notif_t message_notif;
+
 static uint32_t message;
 static volatile uint8_t message_received;
 static volatile message_notif_t received_data;
@@ -80,13 +83,21 @@ char recv_text_buf[TEXT_MSG_SIZE];
 strength_t recv_acoustic_buf[ACOUSTIC_SIZE];
 
 static struct rpmsg_endpoint rp_endpoint;
+
+own_list_t own_list = {ANY, ANY, ANY, ANY, ANY, ANY};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN PFP */
-
 static int rpmsg_recv_callback(struct rpmsg_endpoint *ept, void *data, size_t len, uint32_t src, void *priv);
 void write_log(char *str, uint16_t size);
+
+strength_t *get_open_acoustic(void);
+char *get_open_text(void);
+uint8_t *get_open_ctrl(void);
+
+uint8_t buf_take(void *buffer);
+uint8_t buf_release(void *buffer);
 
 /* USER CODE END PFP */
 
@@ -212,9 +223,18 @@ static int rpmsg_recv_callback(struct rpmsg_endpoint *ept, void *data,
                size_t len, uint32_t src, void *priv)
 {
   received_data = *((message_notif_t *) data);
-
+  own_t* ptr = get_own_flag(received_data.address, &own_list);
+  if (received_data.type == MSG_TAKE) {
+    *ptr = M7;
+  } else if (received_data.type == MSG_RELEASE) {
+    *ptr = ANY;
+  } else {
+    *ptr = M4;
+  }
   if (received_data.type == MSG_TEXT) {
     memcpy(recv_text_buf, (const char *) received_data.address, sizeof(recv_text_buf));
+    buf_release(received_data.address);
+    
     #ifdef DEBUG
     printf("Recieved text from CM7: %s\n", recv_text_buf);
     #endif
@@ -252,6 +272,52 @@ int _write(int file, char *ptr, int len)
   
   return len;
 }
+
+strength_t *get_open_acoustic(void) {
+  if (own_list.acoustic_ping != M7)
+    return acoustic_ping;
+  else if (own_list.acoustic_pong != M7)
+    return acoustic_pong;
+  else
+    return NULL;
+}
+
+char *get_open_text(void) {
+  if (own_list.text_ping != M7)
+    return text_ping;
+  else if (own_list.text_pong != M7)
+    return text_pong;
+  else
+    return NULL;
+}
+
+uint8_t *get_open_ctrl(void){
+  if (own_list.control_ping != M7)
+    return ctrl_ping;
+  else if (own_list.control_pong != M7)
+    return ctrl_pong;
+  else
+    return NULL;
+}
+
+uint8_t buf_take(void *buffer) {
+  *get_own_flag(buffer, &own_list) = M4;
+  message_notif.address = buffer;
+  message_notif.length = 0;
+  message_notif.type = MSG_TAKE;
+  OPENAMP_send(&rp_endpoint, &message_notif, sizeof(message_notif));
+  return 1;
+}
+
+uint8_t buf_release(void *buffer) {
+  *get_own_flag(buffer, &own_list) = ANY;
+  message_notif.address = buffer;
+  message_notif.length = 0;
+  message_notif.type = MSG_RELEASE;
+  OPENAMP_send(&rp_endpoint, &message_notif, sizeof(message_notif));
+  return 1;
+}
+
 /* USER CODE END 4 */
 
 /**

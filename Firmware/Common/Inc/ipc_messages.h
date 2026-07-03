@@ -20,22 +20,22 @@ typedef enum {
 typedef struct {
     MSG_TYPE type;
     uint32_t length;
-    uintptr_t address;
+    void *address;
 } message_notif_t;
 
 typedef enum {
     M4,
     M7,
     ANY,
-} OWN_TYPE;
+} own_t;
 
 typedef struct {
-    OWN_TYPE acoustic_ping;
-    OWN_TYPE acoustic_pong;
-    OWN_TYPE text_ping;
-    OWN_TYPE text_pong;
-    OWN_TYPE control_ping;
-    OWN_TYPE control_pong;
+    own_t acoustic_ping;
+    own_t acoustic_pong;
+    own_t text_ping;
+    own_t text_pong;
+    own_t control_ping;
+    own_t control_pong;
 } own_list_t;
 
 extern __attribute__((section(".sram4_shared"))) strength_t acoustic_ping[ACOUSTIC_SIZE];
@@ -46,5 +46,7 @@ extern __attribute__((section(".sram4_shared"))) char text_pong[TEXT_MSG_SIZE];
 
 extern __attribute__((section(".sram4_shared"))) uint8_t ctrl_ping[CTRL_MSG_SIZE];
 extern __attribute__((section(".sram4_shared"))) uint8_t ctrl_pong[CTRL_MSG_SIZE];
+
+volatile own_t* get_own_flag(void* ptr, own_list_t* own_list);
 
 #endif

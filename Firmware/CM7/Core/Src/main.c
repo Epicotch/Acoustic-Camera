@@ -27,12 +27,13 @@
 #include "sai.h"
 #include "sdmmc.h"
 #include "gpio.h"
-#include <stddef.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
+#include <stddef.h>
 #include <string.h>
+#include <stdarg.h>
 #include "arm_math.h"
 #include "ipc_messages.h"
 #include "defines.h"
@@ -88,6 +89,17 @@ static void MPU_Config(void);
 static int rpmsg_recv_callback(struct rpmsg_endpoint *ept, void *data, size_t len, uint32_t src, void *priv);
 void service_destroy_cb(struct rpmsg_endpoint *ept);
 void new_service_cb(struct rpmsg_device *rdev, const char *name, uint32_t dest);
+
+int send_text(const char *format, ...);
+
+uint8_t buf_take(void *buffer);
+uint8_t buf_release(void *buffer);
+
+strength_t *get_open_acoustic(void);
+char *get_open_text(void);
+uint8_t *get_open_ctrl(void);
+
+own_list_t own_list = {ANY, ANY, ANY, ANY, ANY};
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -196,21 +208,10 @@ Error_Handler();
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    snprintf(text_ping, sizeof(text_ping), "Count: %u", count);
-    message_notif.address = (uintptr_t)text_ping;
-    message_notif.length = sizeof(text_ping);
-    message_notif.type = MSG_TEXT;
-    OPENAMP_send(&rp_endpoint, &message_notif, sizeof(message_notif));
-    HAL_Delay(1000);
+    OPENAMP_check_for_message();
+    send_text("Count: %u", count);
     count++;
-
-    snprintf(text_pong, sizeof(text_ping), "Count: %u", count);
-    message_notif.address = (uintptr_t)text_pong;
-    message_notif.length = sizeof(text_pong);
-    message_notif.type = MSG_TEXT;
-    OPENAMP_send(&rp_endpoint, &message_notif, sizeof(message_notif));
     HAL_Delay(1000);
-    count++;
 
     /* USER CODE END WHILE */
 
@@ -309,7 +310,16 @@ static int rpmsg_recv_callback(struct rpmsg_endpoint *ept, void *data,
                 size_t len, uint32_t src, void *priv)
 {
   // TODO: update this to parse the message and actually do stuff with it
-  
+  received_data = *((message_notif_t *) data);
+
+  own_t* ptr = get_own_flag(received_data.address, &own_list);
+  if (received_data.type == MSG_TAKE) {
+    *ptr = M4;
+  } else if (received_data.type == MSG_RELEASE) {
+    *ptr = ANY;
+  } else {
+    *ptr = M7;
+  }
   message_received=1;
 
   return 0;
@@ -330,6 +340,73 @@ void new_service_cb(struct rpmsg_device *rdev, const char *name, uint32_t dest)
                           service_destroy_cb);
   service_created = 1;
 }
+
+strength_t *get_open_acoustic(void) {
+  if (own_list.acoustic_ping != M4)
+    return acoustic_ping;
+  else if (own_list.acoustic_pong != M4)
+    return acoustic_pong;
+  else
+    return NULL;
+}
+
+char *get_open_text(void) {
+  if (own_list.text_ping != M4)
+    return text_ping;
+  else if (own_list.text_pong != M4)
+    return text_pong;
+  else
+    return NULL;
+}
+
+uint8_t *get_open_ctrl(void){
+  if (own_list.control_ping != M4)
+    return ctrl_ping;
+  else if (own_list.control_pong != M4)
+    return ctrl_pong;
+  else
+    return NULL;
+}
+
+int send_text(const char *format, ...) {
+  va_list args;
+  int result;
+
+  va_start(args, format);
+  char *buffer = get_open_text();
+  if (buffer == NULL)
+    return 0;
+  result = vsprintf(buffer, format, args);
+
+  message_notif.address = buffer;
+  message_notif.length = sizeof(buffer);
+  message_notif.type = MSG_TEXT;
+  OPENAMP_send(&rp_endpoint, &message_notif, sizeof(message_notif));
+
+  *get_own_flag(buffer, &own_list) = M4;
+
+  va_end(args);
+  return result;
+}
+
+uint8_t buf_take(void *buffer) {
+  *get_own_flag(buffer, &own_list) = M7;
+  message_notif.address = buffer;
+  message_notif.length = 0;
+  message_notif.type = MSG_TAKE;
+  OPENAMP_send(&rp_endpoint, &message_notif, sizeof(message_notif));
+  return 1;
+}
+
+uint8_t buf_release(void *buffer) {
+  *get_own_flag(buffer, &own_list) = ANY;
+  message_notif.address = buffer;
+  message_notif.length = 0;
+  message_notif.type = MSG_RELEASE;
+  OPENAMP_send(&rp_endpoint, &message_notif, sizeof(message_notif));
+  return 1;
+}
+
 /* USER CODE END 4 */
 
  /* MPU Configuration */
