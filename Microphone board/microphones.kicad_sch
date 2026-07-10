@@ -1953,16 +1953,6 @@
 	)
 	(wire
 		(pts
-			(xy 219.71 73.66) (xy 232.41 73.66)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "084b7b6c-5520-4b1d-92d7-87e521063c05")
-	)
-	(wire
-		(pts
 			(xy 102.87 124.46) (xy 105.41 124.46)
 		)
 		(stroke
@@ -3383,7 +3373,7 @@
 	)
 	(wire
 		(pts
-			(xy 208.28 71.12) (xy 212.09 71.12)
+			(xy 208.28 71.12) (xy 232.41 71.12)
 		)
 		(stroke
 			(width 0)
@@ -3763,16 +3753,6 @@
 	)
 	(wire
 		(pts
-			(xy 219.71 71.12) (xy 232.41 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "92f4c8c2-78f4-4712-9d32-5a1eb7b571a4")
-	)
-	(wire
-		(pts
 			(xy 74.93 251.46) (xy 74.93 254)
 		)
 		(stroke
@@ -3783,7 +3763,7 @@
 	)
 	(wire
 		(pts
-			(xy 208.28 73.66) (xy 212.09 73.66)
+			(xy 208.28 73.66) (xy 232.41 73.66)
 		)
 		(stroke
 			(width 0)
@@ -8772,85 +8752,6 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 215.9 71.12 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "43cfc3ef-9bdb-461a-bd11-66fe3f0636a8")
-		(property "Reference" "R31"
-			(at 211.328 70.104 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "22R"
-			(at 220.472 70.104 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 215.9 72.898 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 215.9 71.12 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 215.9 71.12 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "69294ed4-0249-438b-b9ef-a93188fe670c")
-		)
-		(pin "2"
-			(uuid "5ab4f464-7393-4a18-ad75-71213e36ae30")
-		)
-		(instances
-			(project "Microphone board"
-				(path "/54b36551-a175-45db-a91c-236f7d72a35b/46472c5b-0bf6-4ffe-840a-aba929ed84f5"
-					(reference "R31")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
 		(at 232.41 194.31 0)
 		(unit 1)
 		(body_style 1)
@@ -8926,85 +8827,6 @@
 			(project "Microphone board"
 				(path "/54b36551-a175-45db-a91c-236f7d72a35b/46472c5b-0bf6-4ffe-840a-aba929ed84f5"
 					(reference "R34")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 215.9 73.66 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "4c062166-3c4d-4538-b94c-57b52739f5da")
-		(property "Reference" "R32"
-			(at 211.328 72.644 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "22R"
-			(at 220.472 72.644 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 215.9 75.438 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 215.9 73.66 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 215.9 73.66 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "1fd97560-581b-4c92-906a-d577f55dd60b")
-		)
-		(pin "2"
-			(uuid "4520408b-0cef-45a2-a9a8-fe3d63c9e3c6")
-		)
-		(instances
-			(project "Microphone board"
-				(path "/54b36551-a175-45db-a91c-236f7d72a35b/46472c5b-0bf6-4ffe-840a-aba929ed84f5"
-					(reference "R32")
 					(unit 1)
 				)
 			)

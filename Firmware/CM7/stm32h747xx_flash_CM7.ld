@@ -42,6 +42,9 @@ FLASH (rx)      : ORIGIN = 0x08000000, LENGTH = 1024K
 RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = 128K
 ITCMRAM (xrw)      : ORIGIN = 0x00000000, LENGTH = 64K
 
+AXI_SRAM (xrw)     : ORIGIN = 0x24000000, LENGTH = 512K  /* The massive main pool */
+SRAM123 (xrw)      : ORIGIN = 0x30000000, LENGTH = 288K  /* The D2 domain pool */
+
 OPENAMP_RSC_TAB (xrw) : ORIGIN = 0x38000000, LENGTH = 1K
 OPEN_AMP_SHMEM (xrw) : ORIGIN = 0x38000400, LENGTH = 15K
 SRAM4_SHARED (rw) : ORIGIN = 0x38004000, LENGTH = 16K
@@ -214,7 +217,7 @@ SECTIONS
   PROVIDE( __bss_size = __bss_end - __bss_start );
 
 
-  /* User_heap_stack section, used to check that there is enough RAM left */
+  /* User_heap_stack section, used to check that there is enough RAM left
   ._user_heap_stack (NOLOAD) :
   {
     . = ALIGN(8);
@@ -223,13 +226,57 @@ SECTIONS
     . = . + _Min_Heap_Size;
     . = . + _Min_Stack_Size;
     . = ALIGN(8);
+  } >RAM */
+
+  /* Keep the critical stack in fast DTCM RAM */
+  ._user_stack (NOLOAD) :
+  {
+    . = ALIGN(8);
+    . = . + _Min_Stack_Size;
+    . = ALIGN(8);
   } >RAM
+
+  /* Move the heavy Heap to the massive AXI SRAM */
+  ._user_heap (NOLOAD) :
+  {
+    . = ALIGN(8);
+    PROVIDE ( end = . ); 
+    PROVIDE ( _end = . ); 
+    . = . + _Min_Heap_Size; 
+    . = ALIGN(8);
+  } >AXI_SRAM
 
   
   .openamp_section (NOLOAD) : {
   . = ABSOLUTE(0x38000000);
   *(.resource_table) 
   } >OPENAMP_RSC_TAB AT > FLASH
+  /* Remove information from the standard libraries */
+  /DISCARD/ :
+  {
+    libc.a:* ( * )
+    libm.a:* ( * )
+    libgcc.a:* ( * )
+  }
+
+  .ARM.attributes 0 : { *(.ARM.attributes) }
+
+  .axi_sram_layout (NOLOAD) :
+  {
+    . = ALIGN(4);
+    *(.axi_sram)
+    *(.axi_sram*)
+    . = ALIGN(4);
+  } >AXI_SRAM
+
+  .sram123_layout (NOLOAD) :
+  {
+    . = ALIGN(4);
+    *(.sram123)
+    *(.sram123*)
+    . = ALIGN(4);
+  } >SRAM123
+
   /* Remove information from the standard libraries */
   /DISCARD/ :
   {

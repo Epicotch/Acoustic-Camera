@@ -111,3 +111,5 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/../Common/Src/ipc_messages.c"
 )
+
+set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "-u _printf_float")

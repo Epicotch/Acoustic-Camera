@@ -23,8 +23,8 @@
 #include "dcmi.h"
 #include "dma.h"
 #include "fatfs.h"
+#include "mdma.h"
 #include "openamp.h"
-#include "stm32h7xx_hal_gpio.h"
 #include "tim.h"
 #include "usb_device.h"
 #include "gpio.h"
@@ -152,6 +152,7 @@ int main(void)
   MX_GPIO_Init();
   MX_DMA_Init();
   MX_BDMA_Init();
+  MX_MDMA_Init();
   MX_DCMI_Init();
   MX_FATFS_Init();
   MX_USB_DEVICE_Init();
@@ -236,7 +237,7 @@ static int rpmsg_recv_callback(struct rpmsg_endpoint *ept, void *data,
     buf_release(received_data.address);
     
     #ifdef DEBUG
-    printf("Recieved text from CM7: %s\n", recv_text_buf);
+    printf("CM7: %s\n", recv_text_buf);
     #endif
   }
 
