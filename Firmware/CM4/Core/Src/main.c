@@ -23,7 +23,6 @@
 #include "dcmi.h"
 #include "dma.h"
 #include "fatfs.h"
-#include "mdma.h"
 #include "openamp.h"
 #include "tim.h"
 #include "usb_device.h"
@@ -152,7 +151,6 @@ int main(void)
   MX_GPIO_Init();
   MX_DMA_Init();
   MX_BDMA_Init();
-  MX_MDMA_Init();
   MX_DCMI_Init();
   MX_FATFS_Init();
   MX_USB_DEVICE_Init();

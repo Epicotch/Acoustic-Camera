@@ -34,7 +34,6 @@ set(MX_Application_Src
     ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/bdma.c
     ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/dma.c
     ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/i2c.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/mdma.c
     ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/sai.c
     ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/sdmmc.c
     ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/stm32h7xx_it.c
