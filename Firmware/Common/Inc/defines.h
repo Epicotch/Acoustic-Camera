@@ -13,11 +13,13 @@
 #define TEXT_MSG_SIZE       512
 #define CTRL_MSG_SIZE       8
 
-#define VERTICAL_FOV        120.0
-#define HORIZ_FOV           120.0
+#define VERTICAL_FOV        90.0 * 3.1415926535 / 180
+#define HORIZ_FOV           90.0 * 3.1415926535 / 180
 
 #define NUM_CHANNELS        16
 #define SAMPLES_PER_CH      1024
 #define DMA_BUF_SIZE        (NUM_CHANNELS * SAMPLES_PER_CH * 2)
+
+#define SAMPLE_RATE         48000
 
 #endif

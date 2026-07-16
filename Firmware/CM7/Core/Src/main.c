@@ -18,8 +18,11 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "arm_math_types.h"
 #include "bdma.h"
 #include "dma.h"
+#include "dsp/fast_math_functions.h"
+#include "dsp/svm_functions.h"
 #include "i2c.h"
 #include "openamp.h"
 #include "sai.h"
@@ -69,6 +72,18 @@
 #define HALF_SAMPLES  (NUM_CHANNELS * SAMPLES_PER_CH)
 #define HALF_BYTES    (HALF_SAMPLES * sizeof(int16_t))
 
+#define LUT_BITS      10
+#define LUT_SIZE      (1u << LUT_BITS)
+#define PHASE_SHIFT   (32 - LUT_BITS)
+#define PHASE_ROUND   (1u << (PHASE_SHIFT - 1))
+#define PHASE_SCALE   (4294967296.0f / (float32_t)SAMPLES_PER_CH)
+
+#define MAX_INDEX     SAMPLES_PER_CH / 2 // up to change
+#define MIN_INDEX     40
+#define NBINS         (MAX_INDEX - MIN_INDEX)
+
+typedef struct { float32_t re, im; } cf32_t;
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -88,13 +103,41 @@ static struct rpmsg_endpoint rp_endpoint;
 
 static volatile message_notif_t received_data;
 
-__attribute__((section(".dtcm"), aligned(32), used)) static q15_t fft_outputs[NUM_CHANNELS][SAMPLES_PER_CH * 2];
-static arm_rfft_instance_q15 fft_handler;
-__attribute__((aligned(32))) static q15_t fft_mag[SAMPLES_PER_CH];
+__attribute__((section(".axi_sram"), aligned(32), used)) static float32_t fft_outputs[NUM_CHANNELS][SAMPLES_PER_CH * 2];
+static arm_rfft_fast_instance_f32 fft_handler;
+__attribute__((aligned(32))) static float32_t fft_mag[SAMPLES_PER_CH];
 
 __attribute__((section(".axi_sram"), aligned(32), used)) int16_t axi_rx_buffer[NUM_CHANNELS * SAMPLES_PER_CH * 2];
+__attribute__((section(".dtcm"), aligned(32), used)) int16_t dtcm_rx_buffer[NUM_CHANNELS * SAMPLES_PER_CH];
 
-__attribute__((section(".dtcm"), used, aligned(4))) static q15_t scratch[SAMPLES_PER_CH];
+__attribute__((section(".dtcm"), used, aligned(4))) static float32_t scratch[SAMPLES_PER_CH];
+
+__attribute__((section(".dtcm"), aligned(8))) static cf32_t   lut[LUT_SIZE];
+__attribute__((section(".dtcm"), aligned(8))) static float32_t mic_s[16][2];
+__attribute__((section(".dtcm"), aligned(8))) static cf32_t   acc[NBINS];
+__attribute__((section(".dtcm"), aligned(32), used)) float32_t pix_k[ACOUSTIC_HORIZ][ACOUSTIC_VERT][2];
+__attribute__((section(".axi_sram"), aligned(32), used)) float32_t power[ACOUSTIC_HORIZ][ACOUSTIC_VERT];
+__attribute__((section(".axi_sram"), aligned(32), used)) float32_t max_freq[ACOUSTIC_HORIZ][ACOUSTIC_VERT];
+
+static const float32_t MIC_POS[16][2] = {
+  {38.075e-3, 18.160e-3}, 
+  {68.283e-3, 29.155e-3}, 
+  {11.973e-3, 8.659e-3},
+  {21.294e-3, 12.054e-3},
+  {-1.256e-3, 49.581e-3},
+  {-0.555e-3, 29.508e-3},
+  {-14.756e-3, 8.744e-3},
+  {-0.165e-3, 18.357e-3},
+  {-26.82e-3, 12.203e-3},
+  {-48.537e-3, 18.43e-3},
+  {-17.434e-3, -21.906e-3},
+  {-31.647e-3, -42.975e-3},
+  {12.538e-3, -11.216e-3},
+  {-9.544e-3, -10.204e-3},
+  {39.909e-3, -46.250e-3},
+  {22.313e-3, -23.728e-3}
+};
+  
 
 /* USER CODE END PV */
 
@@ -108,18 +151,24 @@ void service_destroy_cb(struct rpmsg_endpoint *ept);
 void new_service_cb(struct rpmsg_device *rdev, const char *name, uint32_t dest);
 
 int send_text(const char *format, ...);
+void send_power(void);
 
 uint8_t buf_take(void *buffer);
 uint8_t buf_release(void *buffer);
 
-uint8_t process_fft_1 = 0;
-uint8_t process_fft_2 = 0;
+volatile uint8_t process_fft_1 = 0;
+volatile uint8_t process_fft_2 = 0;
 
-strength_t *get_open_acoustic(void);
 char *get_open_text(void);
 uint8_t *get_open_ctrl(void);
 
 void adc_setup(uint8_t addr, uint8_t master);
+
+float32_t arm_tan(float32_t theta);
+void calculate_k(void);
+
+void beamform_init(void);
+void beamform_frame(void);
 
 own_list_t own_list = {ANY, ANY, ANY, ANY, ANY};
 /* USER CODE END PFP */
@@ -223,12 +272,12 @@ Error_Handler();
 
   OPENAMP_Wait_EndPointready(&rp_endpoint);
 
-  uint32_t count = 0;
-
   // initialize both ADCs
   HAL_GPIO_WritePin(SHDNZ_GPIO_Port, SHDNZ_Pin, GPIO_PIN_RESET);
   HAL_Delay(1);
   HAL_GPIO_WritePin(SHDNZ_GPIO_Port, SHDNZ_Pin, GPIO_PIN_SET);
+
+  calculate_k();
 
   HAL_SAI_Receive_DMA(&hsai_BlockA1, (uint8_t *)axi_rx_buffer, NUM_CHANNELS * SAMPLES_PER_CH * 2);
 
@@ -241,7 +290,8 @@ Error_Handler();
   HAL_I2C_Mem_Write(&hi2c4, ADC1_ADDR, ADC5140_PWR_CFG, I2C_MEMADD_SIZE_8BIT, &write_byte, 1, 100);
   HAL_I2C_Mem_Write(&hi2c4, ADC2_ADDR, ADC5140_PWR_CFG, I2C_MEMADD_SIZE_8BIT, &write_byte, 1, 100);
 
-  arm_rfft_init_q15(&fft_handler, SAMPLES_PER_CH, 0, 1);
+  arm_rfft_fast_init_f32(&fft_handler, SAMPLES_PER_CH);
+  beamform_init();
 
   /* USER CODE END 2 */
 
@@ -249,55 +299,43 @@ Error_Handler();
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    OPENAMP_check_for_message(); // ALWAYS KEEP THIS HERE. TRY TO AVOID BLOCKING. 
+    OPENAMP_check_for_message(); // ALWAYS KEEP THIS HERE. TRY TO AVOID BLOCKING.
 
     if (process_fft_1 || process_fft_2) {
+      send_text("%lu", SystemCoreClock);
       uint8_t use_ping = process_fft_1;
-      uint32_t base = use_ping ? 0 : NUM_CHANNELS * SAMPLES_PER_CH;
-      SCB_InvalidateDCache_by_Addr((uint32_t*)&axi_rx_buffer[use_ping ? 0 : NUM_CHANNELS*SAMPLES_PER_CH],
-                             NUM_CHANNELS * SAMPLES_PER_CH * sizeof(int16_t));
       for (int ch = 0; ch < NUM_CHANNELS; ch++) {
         for (int n = 0; n < SAMPLES_PER_CH; n++) {
-          scratch[n] = axi_rx_buffer[n * NUM_CHANNELS + ch + base];
+          scratch[n] = dtcm_rx_buffer[n * NUM_CHANNELS + ch];
         }
-        arm_rfft_q15(&fft_handler, scratch, fft_outputs[ch]);
-        if (process_fft_1 == 1) {
-          process_fft_1 = 0;
-        }
-        else {
-          process_fft_2 = 0;
+        arm_rfft_fast_f32(&fft_handler, scratch, fft_outputs[ch], 0);
+      }
+      if (use_ping) process_fft_1 = 0;
+      else process_fft_2 = 0;
+
+      beamform_frame();
+
+      uint8_t max_x = 0;
+      uint8_t max_y = 0;
+
+      for (int x = 0; x < ACOUSTIC_HORIZ; x++) {
+        for (int y = 0; y < ACOUSTIC_VERT; y++) {
+          if (power[x][y] > power[max_x][max_y]) {
+            max_x = x;
+            max_y = y;
+          }
         }
       }
-      arm_cmplx_mag_q15(fft_outputs[0], fft_mag, SAMPLES_PER_CH / 2); // TODO: figure out why no channels work except the first :sob:
-      uint32_t max_ind = 1;
-      uint32_t prev_max = max_ind;
-      for (int i = max_ind; i < SAMPLES_PER_CH / 2; i++) {
-        if (fft_mag[i] > fft_mag[max_ind]) {
-          prev_max = max_ind;
-          max_ind = i;
-        }
-      }
-      // max_ind = 64;
-      float freq = max_ind * 48000.0f / SAMPLES_PER_CH;
-      send_text("Freq: %f, Mag: %d", freq, fft_mag[max_ind]);
 
+      float32_t horiz_step = HORIZ_FOV / ACOUSTIC_HORIZ;
+      float32_t vert_step = VERTICAL_FOV / ACOUSTIC_VERT;
 
-      // uint8_t read_status[5];
-      // HAL_I2C_Mem_Read(&hi2c4, ADC1_ADDR, 0x76, I2C_MEMADD_SIZE_8BIT, read_status, 2, 100);
-      // HAL_I2C_Mem_Read(&hi2c4, ADC1_ADDR, 0x15, I2C_MEMADD_SIZE_8BIT, read_status+2, 1, 100);
-      // HAL_I2C_Mem_Read(&hi2c4, ADC1_ADDR, 0x2D, I2C_MEMADD_SIZE_8BIT, read_status+3, 1, 100);
-      // HAL_I2C_Mem_Read(&hi2c4, ADC1_ADDR, ADC5140_GPIO1_CFG, I2C_MEMADD_SIZE_8BIT, read_status+4, 1, 100);
-      // send_text("ADC 1 DEV_STS0: %#x STS2: %#x: ASI_STS: %#x INT_LTCH0: %#x GPIO: %#x", read_status[0], read_status[1], read_status[2], read_status[3], read_status[4]);
-      // HAL_I2C_Mem_Read(&hi2c4, ADC2_ADDR, 0x76, I2C_MEMADD_SIZE_8BIT, read_status, 2, 100);
-      // HAL_I2C_Mem_Read(&hi2c4, ADC2_ADDR, 0x15, I2C_MEMADD_SIZE_8BIT, read_status+2, 1, 100);
-      // HAL_I2C_Mem_Read(&hi2c4, ADC2_ADDR, 0x2D, I2C_MEMADD_SIZE_8BIT, read_status+3, 1, 100);
-      // HAL_I2C_Mem_Read(&hi2c4, ADC2_ADDR, ADC5140_GPIO1_CFG, I2C_MEMADD_SIZE_8BIT, read_status+4, 1, 100);
-      // send_text("ADC 2 DEV_STS0: %#x STS2: %#x: ASI_STS: %#x INT_LTCH0: %#x GPIO: %#x", read_status[0], read_status[1], read_status[2], read_status[3], read_status[4]);
+      float32_t theta_x = (-HORIZ_FOV / 2 + horiz_step * (max_x + 0.5)) * 180 / PI;
+      float32_t theta_y = (-VERTICAL_FOV / 2 + vert_step * (max_y + 0.5)) * 180 / PI;
+
+      send_text("Freq: %f\tPower: %f\ttheta_x: %f\ttheta_y: %f", max_freq[max_x][max_y], power[max_x][max_y], theta_x, theta_y);
+
     }
-
-    // send_text("Count: %u", count);
-    // count++;
-    // HAL_Delay(1000);
 
     /* USER CODE END WHILE */
 
@@ -427,15 +465,6 @@ void new_service_cb(struct rpmsg_device *rdev, const char *name, uint32_t dest)
   service_created = 1;
 }
 
-strength_t *get_open_acoustic(void) {
-  if (own_list.acoustic_ping != M4)
-    return acoustic_ping;
-  else if (own_list.acoustic_pong != M4)
-    return acoustic_pong;
-  else
-    return NULL;
-}
-
 char *get_open_text(void) {
   if (own_list.text_ping != M4)
     return text_ping;
@@ -474,6 +503,19 @@ int send_text(const char *format, ...) {
 
   va_end(args);
   return result;
+}
+
+void send_power() {
+  OPENAMP_check_for_message();
+  memcpy(acoustic_power, power, sizeof(acoustic_power));
+  memcpy(acoustic_freq, max_freq, sizeof(acoustic_power));
+  
+  message_notif.address = acoustic_power;
+  message_notif.length = sizeof(acoustic_power);
+  message_notif.type = MSG_ACOUSTIC;
+  OPENAMP_send(&rp_endpoint, &message_notif, sizeof(message_notif));
+  *get_own_flag(acoustic_power, &own_list) = M4;
+  *get_own_flag(acoustic_freq, &own_list) = M4;
 }
 
 uint8_t buf_take(void *buffer) {
@@ -562,12 +604,17 @@ void HAL_SAI_RxHalfCpltCallback(SAI_HandleTypeDef *hsai)
 {
   if(hsai->Instance == hsai_BlockA1.Instance) // Verify it's the correct SAI block
   {
-    #ifdef DEBUG
-    if (process_fft_1 == 1)
-      send_text("SAI overrun first half");
-    #endif
-
-    process_fft_1 = 1;
+    // #ifdef DEBUG
+    // if (process_fft_1 == 1)
+    //   send_text("SAI overrun first half");
+    // #endif
+    if (!(process_fft_1 || process_fft_2)) {
+      process_fft_1 = 1;
+      uint32_t base = 0 ;
+      SCB_InvalidateDCache_by_Addr((uint32_t*)&axi_rx_buffer[base],
+                              NUM_CHANNELS * SAMPLES_PER_CH * sizeof(int16_t));
+      memcpy(dtcm_rx_buffer, &axi_rx_buffer[base], sizeof(dtcm_rx_buffer));
+    }
   }
 }
 
@@ -576,12 +623,125 @@ void HAL_SAI_RxCpltCallback(SAI_HandleTypeDef *hsai)
 {
   if(hsai->Instance == hsai_BlockA1.Instance)
   {
-    #ifdef DEBUG
-    if (process_fft_2 == 1)
-      send_text("SAI overrun second half");
-    #endif
+    // #ifdef DEBUG
+    // if (process_fft_2 == 1)
+    //   send_text("SAI overrun second half");
+    // #endif
+    if (!(process_fft_1 || process_fft_2)) {
+      process_fft_2 = 1;
+      uint32_t base = NUM_CHANNELS * SAMPLES_PER_CH;
+      SCB_InvalidateDCache_by_Addr((uint32_t*)&axi_rx_buffer[base],
+                              NUM_CHANNELS * SAMPLES_PER_CH * sizeof(int16_t));
+      memcpy(dtcm_rx_buffer, &axi_rx_buffer[base], sizeof(dtcm_rx_buffer));
+    }
+  }
+}
 
-    process_fft_2 = 1;
+float32_t arm_tan(float32_t theta) {
+  return arm_sin_f32(theta) / arm_cos_f32(theta);
+}
+
+void calculate_k() {
+  float32_t horiz_step = HORIZ_FOV / ACOUSTIC_HORIZ;
+  float32_t vert_step = VERTICAL_FOV / ACOUSTIC_VERT;
+
+  for (int x = 0; x < ACOUSTIC_HORIZ; x++) {
+    float theta_x = -HORIZ_FOV / 2 + horiz_step * (x + 0.5); 
+    for (int y = 0; y < ACOUSTIC_VERT; y++) {
+      float theta_y = -VERTICAL_FOV / 2 + vert_step * (y + 0.5);
+      float32_t temp_k[] = {arm_tan(theta_x), arm_tan(theta_y), 1.0}; 
+      float32_t mag;
+      arm_sqrt_f32(arm_exponent_f32(temp_k[0], 2) + arm_exponent_f32(temp_k[1], 2) + arm_exponent_f32(temp_k[2], 2), &mag);
+      pix_k[x][y][0] = temp_k[0] / (mag * 343);
+      pix_k[x][y][1] = temp_k[1] / (mag * 343);
+    }
+  }
+}
+
+void beamform_init(void)
+{
+    for (uint32_t i = 0; i < LUT_SIZE; i++) {
+        float32_t th = 2.0f * PI * (float32_t)i / (float32_t)LUT_SIZE;
+        lut[i].re = cosf(th);
+        lut[i].im = sinf(th);
+    }
+    for (int m = 0; m < 16; m++) {
+        mic_s[m][0] = -MIC_POS[m][0] * SAMPLE_RATE;
+        mic_s[m][1] = -MIC_POS[m][1] * SAMPLE_RATE;
+    }
+}
+
+void beamform_frame(void)
+{
+  for (int x = 0; x < ACOUSTIC_HORIZ; x++) {
+    for (int y = 0; y < ACOUSTIC_VERT; y++) {
+
+      const float32_t *k = pix_k[x][y];
+
+      /* ---- mic pair 0/1: '=' stores, so no acc-zeroing pass ---- */
+      {
+        float32_t d0 = mic_s[0][0]*k[0] + mic_s[0][1]*k[1];
+        float32_t d1 = mic_s[1][0]*k[0] + mic_s[1][1]*k[1];
+        uint32_t  s0 = (uint32_t)(int32_t)(d0 * PHASE_SCALE);
+        uint32_t  s1 = (uint32_t)(int32_t)(d1 * PHASE_SCALE);
+        uint32_t  p0 = s0 * (uint32_t)MIN_INDEX + PHASE_ROUND;
+        uint32_t  p1 = s1 * (uint32_t)MIN_INDEX + PHASE_ROUND;
+
+        const float32_t *X0 = &fft_outputs[0][2*MIN_INDEX];
+        const float32_t *X1 = &fft_outputs[1][2*MIN_INDEX];
+
+        for (int b = 0; b < NBINS; b++) {
+          cf32_t w0 = lut[p0 >> PHASE_SHIFT];
+          cf32_t w1 = lut[p1 >> PHASE_SHIFT];
+          float32_t x0r = X0[2*b], x0i = X0[2*b+1];
+          float32_t x1r = X1[2*b], x1i = X1[2*b+1];
+          acc[b].re = (x0r*w0.re - x0i*w0.im) + (x1r*w1.re - x1i*w1.im);
+          acc[b].im = (x0r*w0.im + x0i*w0.re) + (x1r*w1.im + x1i*w1.re);
+          p0 += s0;
+          p1 += s1;
+        }
+      }
+
+      /* ---- mic pairs 2..15: accumulate ---- */
+      for (int mm = 2; mm < 16; mm += 2) {
+        float32_t d0 = mic_s[mm  ][0]*k[0] + mic_s[mm  ][1]*k[1];
+        float32_t d1 = mic_s[mm+1][0]*k[0] + mic_s[mm+1][1]*k[1];
+        uint32_t  s0 = (uint32_t)(int32_t)(d0 * PHASE_SCALE);
+        uint32_t  s1 = (uint32_t)(int32_t)(d1 * PHASE_SCALE);
+        uint32_t  p0 = s0 * (uint32_t)MIN_INDEX + PHASE_ROUND;
+        uint32_t  p1 = s1 * (uint32_t)MIN_INDEX + PHASE_ROUND;
+
+        const float32_t *X0 = &fft_outputs[mm  ][2*MIN_INDEX];
+        const float32_t *X1 = &fft_outputs[mm+1][2*MIN_INDEX];
+
+        for (int b = 0; b < NBINS; b++) {
+          cf32_t w0 = lut[p0 >> PHASE_SHIFT];
+          cf32_t w1 = lut[p1 >> PHASE_SHIFT];
+          float32_t ar  = acc[b].re, ai  = acc[b].im;
+          float32_t x0r = X0[2*b],   x0i = X0[2*b+1];
+          float32_t x1r = X1[2*b],   x1i = X1[2*b+1];
+          ar += x0r*w0.re - x0i*w0.im;
+          ai += x0r*w0.im + x0i*w0.re;
+          ar += x1r*w1.re - x1i*w1.im;
+          ai += x1r*w1.im + x1i*w1.re;
+          acc[b].re = ar;
+          acc[b].im = ai;
+          p0 += s0;
+          p1 += s1;
+        }
+      }
+
+      /* ---- power + per-pixel peak bin ---- */
+      float32_t total = 0.0f, best = -1.0f;
+      uint32_t  best_b = 0;
+      for (int b = 0; b < NBINS; b++) {
+        float32_t magsq = acc[b].re*acc[b].re + acc[b].im*acc[b].im;
+        if (magsq > best) { best = magsq; best_b = b; }
+        total += magsq;
+      }
+      power[x][y]    = total;
+      max_freq[x][y] = (float32_t)(best_b + MIN_INDEX) * SAMPLE_RATE / SAMPLES_PER_CH;
+    }
   }
 }
 

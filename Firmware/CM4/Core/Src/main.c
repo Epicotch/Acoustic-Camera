@@ -81,6 +81,9 @@ static volatile uint8_t acoustic_received;
 char recv_text_buf[TEXT_MSG_SIZE];
 strength_t recv_acoustic_buf[ACOUSTIC_SIZE];
 
+strength_t power_buf[ACOUSTIC_HORIZ][ACOUSTIC_VERT];
+trength_t freq_buf[ACOUSTIC_HORIZ][ACOUSTIC_VERT];
+
 static struct rpmsg_endpoint rp_endpoint;
 
 own_list_t own_list = {ANY, ANY, ANY, ANY, ANY, ANY};
@@ -237,6 +240,12 @@ static int rpmsg_recv_callback(struct rpmsg_endpoint *ept, void *data,
     #ifdef DEBUG
     printf("CM7: %s\n", recv_text_buf);
     #endif
+  }
+  else if (received_data.type = MSG_ACOUSTIC) {
+    memcpy(power_buf, acoustic_power, sizeof(power_buf));
+    memcpy(power_buf, acoustic_freq, sizeof(power_buf));
+    buf_release(acoustic_power);
+    buf_release(acoustic_freq);
   }
 
   message_received=1;
