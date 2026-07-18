@@ -660,7 +660,7 @@ void beamform_init(void)
 }
 
 void beamform_frame(void)
-{
+{ // TODO: implement frequency-dependant bin scaling, probably based on mic
   for (int x = 0; x < ACOUSTIC_HORIZ; x++) {
     for (int y = 0; y < ACOUSTIC_VERT; y++) {
 

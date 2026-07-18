@@ -4,8 +4,8 @@ from matplotlib import pyplot as plt
 
 vert_fov = np.pi/2
 horiz_fov = np.pi/2
-horiz_pix = 40
-vert_pix = 40
+horiz_pix = 20
+vert_pix = 20
 
 def cartesian_product(*arrays):
     la = len(arrays)

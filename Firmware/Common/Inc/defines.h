@@ -6,8 +6,8 @@
 #endif
 // #define RELEASE
 
-#define ACOUSTIC_HORIZ      40
-#define ACOUSTIC_VERT       40
+#define ACOUSTIC_HORIZ      20
+#define ACOUSTIC_VERT       20
 #define ACOUSTIC_SIZE       (ACOUSTIC_HORIZ * ACOUSTIC_VERT)
 
 #define TEXT_MSG_SIZE       512
