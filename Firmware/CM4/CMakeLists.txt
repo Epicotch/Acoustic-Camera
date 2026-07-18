@@ -23,7 +23,7 @@ message("Build type: " ${CMAKE_BUILD_TYPE})
 set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
 
 # Compiler options
-set(STM32_MCU_FLAGS  "-mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard" )
+set(STM32_MCU_FLAGS  "-mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -ffast-math" )
 
 #Linker options
 set(STM32_LINKER_SCRIPT stm32h747xx_flash_CM4.ld)
@@ -58,7 +58,7 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
 
 # Add sources to executable
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
-    # Add user sources here
+    Core/Src/ov2640.c
 )
 
 # Link directories setup
@@ -86,3 +86,5 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/../Common/Src/ipc_messages.c"
 )
+
+set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "-u _printf_float")

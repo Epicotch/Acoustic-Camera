@@ -18,11 +18,8 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "arm_math_types.h"
 #include "bdma.h"
 #include "dma.h"
-#include "dsp/fast_math_functions.h"
-#include "dsp/svm_functions.h"
 #include "i2c.h"
 #include "openamp.h"
 #include "sai.h"
@@ -38,6 +35,7 @@
 #include "arm_math.h"
 #include "ipc_messages.h"
 #include "defines.h"
+#include "stm32h7xx_hal_hsem.h"
 #include "stm32h7xx_hal_sai.h"
 #include "tlv320adc5140.h"
 #include "stm32h747xx.h"
@@ -145,6 +143,10 @@ static const float32_t MIC_POS[16][2] = {
 void SystemClock_Config(void);
 void PeriphCommonClock_Config(void);
 static void MPU_Config(void);
+/* USER CODE BEGIN PFP */
+void SystemClock_Config(void);
+void PeriphCommonClock_Config(void);
+static void MPU_Config(void);
 
 static int rpmsg_recv_callback(struct rpmsg_endpoint *ept, void *data, size_t len, uint32_t src, void *priv);
 void service_destroy_cb(struct rpmsg_endpoint *ept);
@@ -170,7 +172,7 @@ void calculate_k(void);
 void beamform_init(void);
 void beamform_frame(void);
 
-own_list_t own_list = {ANY, ANY, ANY, ANY, ANY};
+own_list_t own_list = {ANY, ANY, ANY, ANY, ANY, ANY};
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -237,6 +239,7 @@ HSEM notification */
 /*HW semaphore Clock enable*/
 __HAL_RCC_HSEM_CLK_ENABLE();
 /*Take HSEM */
+HAL_HSEM_FastTake(HSEM_I2C4);
 HAL_HSEM_FastTake(HSEM_ID_0);
 /*Release HSEM in order to notify the CPU2(CM4)*/
 HAL_HSEM_Release(HSEM_ID_0,0);
@@ -293,6 +296,8 @@ Error_Handler();
   arm_rfft_fast_init_f32(&fft_handler, SAMPLES_PER_CH);
   beamform_init();
 
+  HAL_HSEM_Release(HSEM_I2C4, 0);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -302,7 +307,6 @@ Error_Handler();
     OPENAMP_check_for_message(); // ALWAYS KEEP THIS HERE. TRY TO AVOID BLOCKING.
 
     if (process_fft_1 || process_fft_2) {
-      send_text("%lu", SystemCoreClock);
       uint8_t use_ping = process_fft_1;
       for (int ch = 0; ch < NUM_CHANNELS; ch++) {
         for (int n = 0; n < SAMPLES_PER_CH; n++) {
@@ -315,26 +319,7 @@ Error_Handler();
 
       beamform_frame();
 
-      uint8_t max_x = 0;
-      uint8_t max_y = 0;
-
-      for (int x = 0; x < ACOUSTIC_HORIZ; x++) {
-        for (int y = 0; y < ACOUSTIC_VERT; y++) {
-          if (power[x][y] > power[max_x][max_y]) {
-            max_x = x;
-            max_y = y;
-          }
-        }
-      }
-
-      float32_t horiz_step = HORIZ_FOV / ACOUSTIC_HORIZ;
-      float32_t vert_step = VERTICAL_FOV / ACOUSTIC_VERT;
-
-      float32_t theta_x = (-HORIZ_FOV / 2 + horiz_step * (max_x + 0.5)) * 180 / PI;
-      float32_t theta_y = (-VERTICAL_FOV / 2 + vert_step * (max_y + 0.5)) * 180 / PI;
-
-      send_text("Freq: %f\tPower: %f\ttheta_x: %f\ttheta_y: %f", max_freq[max_x][max_y], power[max_x][max_y], theta_x, theta_y);
-
+      send_power();
     }
 
     /* USER CODE END WHILE */
@@ -507,15 +492,18 @@ int send_text(const char *format, ...) {
 
 void send_power() {
   OPENAMP_check_for_message();
-  memcpy(acoustic_power, power, sizeof(acoustic_power));
-  memcpy(acoustic_freq, max_freq, sizeof(acoustic_power));
-  
-  message_notif.address = acoustic_power;
-  message_notif.length = sizeof(acoustic_power);
-  message_notif.type = MSG_ACOUSTIC;
-  OPENAMP_send(&rp_endpoint, &message_notif, sizeof(message_notif));
-  *get_own_flag(acoustic_power, &own_list) = M4;
-  *get_own_flag(acoustic_freq, &own_list) = M4;
+  if (*get_own_flag(acoustic_power, &own_list) != M4) {
+    memcpy(acoustic_power, power, sizeof(acoustic_power));
+    memcpy(acoustic_freq, max_freq, sizeof(acoustic_power));
+    
+    message_notif.address = acoustic_power;
+    message_notif.length = sizeof(acoustic_power);
+    message_notif.type = MSG_ACOUSTIC;
+
+    OPENAMP_send(&rp_endpoint, &message_notif, sizeof(message_notif));
+    *get_own_flag(acoustic_power, &own_list) = M4;
+    *get_own_flag(acoustic_freq, &own_list) = M4;
+  }
 }
 
 uint8_t buf_take(void *buffer) {

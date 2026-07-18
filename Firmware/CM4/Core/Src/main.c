@@ -24,6 +24,7 @@
 #include "dma.h"
 #include "fatfs.h"
 #include "openamp.h"
+#include "stm32h7xx_hal_i2c.h"
 #include "tim.h"
 #include "usb_device.h"
 #include "gpio.h"
@@ -36,6 +37,8 @@
 #include "ipc_messages.h"
 #include "usbd_cdc_if.h"
 #include <string.h>
+#include "i2c.h"
+#include "ov2640.h"
 
 /* USER CODE END Includes */
 
@@ -82,9 +85,15 @@ char recv_text_buf[TEXT_MSG_SIZE];
 strength_t recv_acoustic_buf[ACOUSTIC_SIZE];
 
 strength_t power_buf[ACOUSTIC_HORIZ][ACOUSTIC_VERT];
-trength_t freq_buf[ACOUSTIC_HORIZ][ACOUSTIC_VERT];
+strength_t freq_buf[ACOUSTIC_HORIZ][ACOUSTIC_VERT];
 
 static struct rpmsg_endpoint rp_endpoint;
+
+uint8_t TxBuffer[128];
+uint8_t TxBufferLen = sizeof(TxBuffer);
+uint8_t send_update = 0;
+uint8_t power_header[] = {0xFD, 0xFD,0xFD,0xFD};
+uint8_t freq_header[] = {0xFE,0xFE,0xFE,0xFE};
 
 own_list_t own_list = {ANY, ANY, ANY, ANY, ANY, ANY};
 /* USER CODE END PV */
@@ -105,8 +114,7 @@ uint8_t buf_release(void *buffer);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-uint8_t TxBuffer[128];
-uint8_t TxBufferLen = sizeof(TxBuffer);
+
 /* USER CODE END 0 */
 
 /**
@@ -170,14 +178,19 @@ int main(void)
   if (MX_OPENAMP_Init(RPMSG_REMOTE, NULL)!= HAL_OK)
     Error_Handler();
 
-
-  /* create a endpoint for rmpsg communication */
   uint8_t status = OPENAMP_create_endpoint(&rp_endpoint, RPMSG_CHAN_NAME, RPMSG_ADDR_ANY,
                                     rpmsg_recv_callback, NULL);
   if (status < 0)
   {
     Error_Handler();
   }
+
+  while (HAL_HSEM_FastTake(HSEM_I2C4) != HAL_OK) {}
+  HAL_TIM_OC_Start(&htim3, TIM_CHANNEL_2);
+  MX_I2C4_Init();
+  // OV2640_Init(&hi2c4, &hdcmi);
+  HAL_HSEM_Release(HSEM_I2C4, 0);
+  /* create a endpoint for rmpsg communication */
 
   /* USER CODE END 2 */
 
@@ -186,6 +199,33 @@ int main(void)
   while (1)
   {
     OPENAMP_check_for_message();
+    if (send_update) {
+      uint8_t max_x = 0;
+      uint8_t max_y = 0;
+
+      for (int x = 0; x < ACOUSTIC_HORIZ; x++) {
+        for (int y = 0; y < ACOUSTIC_VERT; y++) {
+          if (power_buf[x][y] > power_buf[max_x][max_y]) {
+            max_x = x;
+            max_y = y;
+          }
+        }
+      }
+
+      // float horiz_step = HORIZ_FOV / ACOUSTIC_HORIZ;
+      // float vert_step = VERTICAL_FOV / ACOUSTIC_VERT;
+
+      // float theta_x = (-HORIZ_FOV / 2 + horiz_step * (max_x + 0.5)) * 180 / 3.14159265;
+      // float theta_y = (-VERTICAL_FOV / 2 + vert_step * (max_y + 0.5)) * 180 / 3.14159265;
+
+      // printf("Freq: %f\tPower: %f\ttheta_x: %f\ttheta_y: %f\n", freq_buf[max_x][max_y], power_buf[max_x][max_y], theta_x, theta_y);
+      while (CDC_Transmit_FS(power_header, 4) == USBD_BUSY) {}
+      while (CDC_Transmit_FS((uint8_t *) power_buf, sizeof(power_buf)) == USBD_BUSY) {}
+      while (CDC_Transmit_FS(freq_header, 4) == USBD_BUSY) {}
+      while (CDC_Transmit_FS((uint8_t *) freq_buf, sizeof(freq_buf)) == USBD_BUSY) {}
+      send_update = 0;
+    }
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -241,11 +281,12 @@ static int rpmsg_recv_callback(struct rpmsg_endpoint *ept, void *data,
     printf("CM7: %s\n", recv_text_buf);
     #endif
   }
-  else if (received_data.type = MSG_ACOUSTIC) {
+  else if (received_data.type == MSG_ACOUSTIC) {
     memcpy(power_buf, acoustic_power, sizeof(power_buf));
-    memcpy(power_buf, acoustic_freq, sizeof(power_buf));
+    memcpy(freq_buf, acoustic_freq, sizeof(freq_buf));
     buf_release(acoustic_power);
     buf_release(acoustic_freq);
+    send_update = 1;
   }
 
   message_received=1;
@@ -279,15 +320,6 @@ int _write(int file, char *ptr, int len)
   //TODO: also log to SD card here
   
   return len;
-}
-
-strength_t *get_open_acoustic(void) {
-  if (own_list.acoustic_ping != M7)
-    return acoustic_ping;
-  else if (own_list.acoustic_pong != M7)
-    return acoustic_pong;
-  else
-    return NULL;
 }
 
 char *get_open_text(void) {

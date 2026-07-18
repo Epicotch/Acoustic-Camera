@@ -3449,6 +3449,19 @@
 		)
 		(uuid "405454c5-4ec3-4011-a552-3c56f954776e")
 	)
+	(text "Create 2.8V analog rail"
+		(exclude_from_sim no)
+		(at 179.07 155.448 0)
+		(effects
+			(font
+				(size 5.08 5.08)
+				(thickness 1.016)
+				(bold yes)
+				(color 255 0 3 1)
+			)
+		)
+		(uuid "838dbdeb-80e2-43e7-9c18-9fcb27c9113d")
+	)
 	(text "Power MUX"
 		(exclude_from_sim no)
 		(at 15.24 16.51 0)

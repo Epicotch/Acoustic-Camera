@@ -6,7 +6,7 @@
 
 #define RPMSG_CHAN_NAME "notifs"
 
-typedef float32_t strength_t;
+typedef float strength_t;
 
 typedef enum {
     MSG_LOGGING,
@@ -30,8 +30,8 @@ typedef enum {
 } own_t;
 
 typedef struct {
-    own_t acoustic_power;
-    own_t acoustic_freq;
+    own_t acoustic_p;
+    own_t acoustic_f;
     own_t text_ping;
     own_t text_pong;
     own_t control_ping;

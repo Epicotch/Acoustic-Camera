@@ -2,7 +2,7 @@
 #define DEFINES_H
 
 #ifndef DEBUG
-#define DEBUG
+// #define DEBUG
 #endif
 // #define RELEASE
 
@@ -21,5 +21,7 @@
 #define DMA_BUF_SIZE        (NUM_CHANNELS * SAMPLES_PER_CH * 2)
 
 #define SAMPLE_RATE         48000
+
+#define HSEM_I2C4  (5U)
 
 #endif
