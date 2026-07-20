@@ -24,7 +24,6 @@
 #include "dma.h"
 #include "fatfs.h"
 #include "openamp.h"
-#include "stm32h7xx_hal_i2c.h"
 #include "tim.h"
 #include "usb_device.h"
 #include "gpio.h"

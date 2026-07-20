@@ -80,6 +80,9 @@
 #define MIN_INDEX     40
 #define NBINS         (MAX_INDEX - MIN_INDEX)
 
+#define MAX_RAD       80e-3
+#define MIN_RAD       25e-3
+
 typedef struct { float32_t re, im; } cf32_t;
 
 /* USER CODE END PD */
@@ -102,6 +105,7 @@ static struct rpmsg_endpoint rp_endpoint;
 static volatile message_notif_t received_data;
 
 __attribute__((section(".axi_sram"), aligned(32), used)) static float32_t fft_outputs[NUM_CHANNELS][SAMPLES_PER_CH * 2];
+__attribute__((section(".axi_sram"), aligned(32), used)) float32_t weight[NUM_CHANNELS][SAMPLES_PER_CH];
 static arm_rfft_fast_instance_f32 fft_handler;
 __attribute__((aligned(32))) static float32_t fft_mag[SAMPLES_PER_CH];
 
@@ -171,6 +175,8 @@ void calculate_k(void);
 
 void beamform_init(void);
 void beamform_frame(void);
+
+void calculate_weights(void);
 
 own_list_t own_list = {ANY, ANY, ANY, ANY, ANY, ANY};
 /* USER CODE END PFP */
@@ -295,6 +301,7 @@ Error_Handler();
 
   arm_rfft_fast_init_f32(&fft_handler, SAMPLES_PER_CH);
   beamform_init();
+  calculate_weights();
 
   HAL_HSEM_Release(HSEM_I2C4, 0);
 
@@ -313,6 +320,10 @@ Error_Handler();
           scratch[n] = dtcm_rx_buffer[n * NUM_CHANNELS + ch];
         }
         arm_rfft_fast_f32(&fft_handler, scratch, fft_outputs[ch], 0);
+        for (int n = 0; n < SAMPLES_PER_CH; n++) {
+          fft_outputs[ch][n*2] *= weight[ch][n];
+          fft_outputs[ch][n*2+1] *= weight[ch][n];
+        }
       }
       if (use_ping) process_fft_1 = 0;
       else process_fft_2 = 0;
@@ -729,6 +740,41 @@ void beamform_frame(void)
       }
       power[x][y]    = total;
       max_freq[x][y] = (float32_t)(best_b + MIN_INDEX) * SAMPLE_RATE / SAMPLES_PER_CH;
+    }
+  }
+}
+
+void calculate_weights() {
+  float cx = 0;
+  float cy = 0;
+  for (int i = 0; i < NUM_CHANNELS; i++) {
+    cx += MIC_POS[i][0];
+    cy += MIC_POS[i][1];
+  }
+  for (int i = 0; i < NUM_CHANNELS; i++) {
+    float r;
+    float dx = MIC_POS[i][0];
+    float dy = MIC_POS[i][1];
+    arm_sqrt_f32(dx*dx + dy*dy, &r);
+    for (int n = 1; n < SAMPLES_PER_CH; n++) {
+      float f = n * (float)SAMPLE_RATE / SAMPLES_PER_CH;
+      float r_cut = 343.0f / (2.0f * f);      // meters, = lambda/2
+      if (r_cut > MAX_RAD) r_cut = MAX_RAD;
+      if (r_cut < MIN_RAD) r_cut = MIN_RAD;
+      float sigma;
+      float denom;
+      sigma = r_cut * 1.41421356237;
+      weight[i][n] = expf(-r * r / (2 * sigma * sigma));
+      if (weight[i][n] < 0.2f) weight[i][n] = 0.2f;
+    }
+  }
+  for (int n = 0; n < SAMPLES_PER_CH; n++) {
+    float total = 0;
+    for (int i = 0; i < NUM_CHANNELS; i++) {
+      total += weight[i][n];
+    }
+    for (int i = 0; i < NUM_CHANNELS; i++) {
+      weight[i][n] /= total;
     }
   }
 }
